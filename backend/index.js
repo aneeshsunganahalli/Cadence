@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors"
 import mongoose from "mongoose";
 import userRouter from "./routes/user.route.js";
+import expenseRouter from "./routes/expense.route.js";
 
 dotenv.config();
 mongoose.connect(process.env.MONGO).then(() => {
@@ -19,6 +20,7 @@ app.use(express.json());
 
 
 app.use("/api/user", userRouter);
+app.use("/api/expenses", expenseRouter);
 
 app.get('/', (req,res) => {
   res.send('API WORKING')

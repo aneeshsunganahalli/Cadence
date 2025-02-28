@@ -16,12 +16,13 @@ const expenseSchema = new mongoose.Schema({
   },
   description: {
     type: String,
+    default: "",
   },
   date: {
-    type: Date,
-    default: Date.now,
+    type: Number,
+    required: true,
   },
-});
+}, {minimize: false});
 
 const Expense = mongoose.model("Expense", expenseSchema)
 
