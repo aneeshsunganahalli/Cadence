@@ -14,7 +14,7 @@ const registerUser = async (req, res) => {
     if (!validator.isEmail(email))
       return res.json({ success: false, message: "Enter a valid email" });
 
-    if (password.length() < 8)
+    if (password.length < 8)
       return res.json({ success: false, message: "Enter a strong password" });
 
     const salt = await bcrypt.genSalt(10);
@@ -40,27 +40,27 @@ const registerUser = async (req, res) => {
   }
 }
 
-const loginUser = async (req,res) => {
+const loginUser = async (req, res) => {
   try {
-    const {email,password} = req.body;
-    const client = await User.findOne({email});
+    const { email, password } = req.body;
+    const client = await User.findOne({ email });
 
     if (!client)
-        return res.status(404).json({success: false, message: "User not found"});
+      return res.status(404).json({ success: false, message: "User not found" });
 
     const passwordMatch = bcrypt.compare(password, client.password)
 
-    if(passwordMatch) {
-        const token = jwt.sign({id: client._id}, process.env.JWT_SECRET);
-        return res.json({success: true, token});
+    if (passwordMatch) {
+      const token = jwt.sign({ id: client._id }, process.env.JWT_SECRET);
+      return res.json({ success: true, token });
     } else {
-      return res.json({success: false, message: "Invalid Credentials"});
+      return res.json({ success: false, message: "Invalid Credentials" });
     }
 
   } catch (error) {
     console.log(error);
-    res.json({success: false, message: error.message});
+    res.json({ success: false, message: error.message });
   }
 }
 
-export {registerUser, loginUser};
+export { registerUser, loginUser };

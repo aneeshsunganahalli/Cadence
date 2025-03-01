@@ -16,7 +16,7 @@ const addExpense = async (req, res) => {
     const newExpense = new Expense(expenseData);
     await newExpense.save();
 
-    res.json({ success: true, message: "Expense Added" })
+    res.status(201).json({ success: true, message: "Expense Added" })
 
   } catch (error) {
     console.log(error);
@@ -24,4 +24,17 @@ const addExpense = async (req, res) => {
   }
 }
 
-export { addExpense };
+const getExpenses = async (req,res) => {
+  try {
+    const {userId} = req.body;
+    const expenses = await Expense.find({userId: userId}).sort({date: -1});
+
+    res.status(200).json({expenses});
+
+  } catch (error) {
+    next(error);
+  }
+}
+
+
+export { addExpense, getExpenses };

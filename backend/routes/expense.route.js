@@ -1,9 +1,10 @@
 import express from "express";
-import { addExpense } from "../controllers/expense.controller.js";
+import { addExpense, getExpenses } from "../controllers/expense.controller.js";
 import authUser from "../middleware/userAuth.js";
 
 const router = express.Router();
 
-router.post("/expenses", authUser, addExpense);
+router.post("/", authUser, addExpense);
+router.get("/", authUser, getExpenses);
 
 export default router;
