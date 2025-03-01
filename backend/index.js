@@ -22,7 +22,7 @@ app.use(express.json());
 app.use("/api/user", userRouter);
 app.use("/api/expenses", expenseRouter);
 
-app.get('/', (req,res) => {
+app.get('/', (req, res) => {
   res.send('API WORKING')
 })
 

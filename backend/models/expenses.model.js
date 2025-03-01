@@ -22,7 +22,7 @@ const expenseSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-}, {minimize: false});
+}, { minimize: false });
 
 const Expense = mongoose.model("Expense", expenseSchema)
 
