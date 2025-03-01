@@ -63,4 +63,26 @@ const loginUser = async (req, res) => {
   }
 }
 
-export { registerUser, loginUser };
+
+const updateUserName = async (req,res) => {
+  try {
+    const {userId, username} = req.body;
+    const client = await User.findById(userId);
+
+    if(!client) {
+      return res.json({success: false, message: "User Not Found"});
+    }
+
+    const updatedClient = await User.findByIdAndUpdate(userId,{
+      username: username || client.username
+    }, {new: true});
+
+    res.json({success: true, message: "Profile Updated", updatedClient});
+    
+  } catch (error) {
+    console.log(error);
+    res.json({success: false, message: error.message});
+  }
+}
+
+export { registerUser, loginUser, updateUserName };

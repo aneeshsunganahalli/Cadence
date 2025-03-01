@@ -79,7 +79,7 @@ const updateExpense = async (req, res) => {
 
     const updatedExpense = await Expense.findByIdAndUpdate(
       req.params.id,
-      { 
+      {
         amount: amount || expense.amount,
         category: category || expense.category,
         description: description || expense.description
