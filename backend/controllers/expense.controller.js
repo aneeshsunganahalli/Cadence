@@ -24,6 +24,7 @@ const addExpense = async (req, res) => {
   }
 }
 
+// To get all expenses
 const getExpenses = async (req, res) => {
   try {
     const { userId } = req.body;
@@ -36,6 +37,20 @@ const getExpenses = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 }
+
+//To get a single expense
+const getExpense = async (req,res) => {
+  try {
+    
+    const expense = await Expense.findById(req.params.id);
+    res.status(200).json({success: true, expense});
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+}
+
 
 const deleteExpense = async (req, res) => {
   try {
@@ -96,4 +111,4 @@ const updateExpense = async (req, res) => {
 }
 
 
-export { addExpense, getExpenses, deleteExpense, updateExpense };
+export { addExpense, getExpenses, deleteExpense, updateExpense, getExpense };
