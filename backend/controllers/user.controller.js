@@ -85,4 +85,37 @@ const updateUserName = async (req,res) => {
   }
 }
 
-export { registerUser, loginUser, updateUserName };
+const googleAuth = async (req,res) => {
+  try {
+    const user = await User.findOne({email: req.body.email});
+    if (user) {
+      const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
+      const {password: pass, ...rest} = user._doc;
+
+      res.status(200).json({success: true, token});
+    } else {
+      const generatedPassword = Math.random().toString(36).substring(-8) + Math.random().toString(36).substring(-8);
+      const salt = await bcrypt.genSalt(10);
+      
+      const hashedPassword = await bcrypt.hash(generatedPassword, salt);
+
+      const newUser = new User({
+        username: req.body.name.split(' ').join('').toLowerCase() + Math.random().toString(36).substring(-4),
+        email: req.body.email,
+        password: hashedPassword,
+        avatar: req.body.photo
+      });
+
+      await newUser.save();
+      const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET);
+      const {password: pass, ...rest} = newUser._doc;
+      res.status(200).json({success: true, token});
+    }
+
+  } catch (error) {
+    console.log(error);
+    res.json({success: false, message: error.message});
+  }
+}
+
+export { registerUser, loginUser, updateUserName, googleAuth };
