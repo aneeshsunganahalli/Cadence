@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit";
 
+// Types for the user state
 interface User {
   username?: string;
   email ?: string;
@@ -44,6 +45,18 @@ const userSlice = createSlice({
     updateUserFailure: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
       state.loading = false;
+    },
+    signOutStart: (state) => {
+      state.loading = true;
+    },
+    signOutSuccess: (state) => {
+      state.currentUser = null;
+      state.loading = false;
+      state.error = null;
+    },
+    signOutFailure: (state, action: PayloadAction<string>) => {
+      state.error = action.payload;
+      state.loading = false;
     }
   }
 })
@@ -55,7 +68,10 @@ export const {
   signInFailure,
   updateUserStart,
   updateUserSuccess,
-  updateUserFailure
+  updateUserFailure,
+  signOutFailure,
+  signOutStart,
+  signOutSuccess
 } = userSlice.actions;
 
 export default userSlice.reducer;
