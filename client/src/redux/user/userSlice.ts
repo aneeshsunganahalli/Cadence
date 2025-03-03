@@ -1,16 +1,6 @@
+import { User, UserState } from "@/types";
 import { createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-// Types for the user state
-interface User {
-  username?: string;
-  email ?: string;
-}
-
-interface UserState {
-  currentUser: User | null;
-  error: string | null;
-  loading: boolean;
-}
 
 const initialState: UserState = {
   currentUser: null,

@@ -52,7 +52,8 @@ const loginUser = async (req, res) => {
 
     if (passwordMatch) {
       const token = jwt.sign({ id: client._id }, process.env.JWT_SECRET);
-      return res.json({ success: true, token });
+      const { password: pass, ...rest} = client._doc;
+      return res.json({ success: true, token, rest });
     } else {
       return res.json({ success: false, message: "Invalid Credentials" });
     }
@@ -109,7 +110,7 @@ const googleAuth = async (req,res) => {
       await newUser.save();
       const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET);
       const {password: pass, ...rest} = newUser._doc;
-      res.status(200).json({success: true, token});
+      res.status(200).json({success: true, token, rest});
     }
 
   } catch (error) {
