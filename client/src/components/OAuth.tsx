@@ -3,8 +3,8 @@
 import React from 'react';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { app } from "../firebase";
-//import { useDispatch } from 'react-redux';
-//import { signInSuccess } from '@/redux/user/userSlice';
+import { useDispatch } from 'react-redux';
+import { signInSuccess } from '@/redux/user/userSlice';
 import { useRouter } from 'next/navigation';
 
 interface UserData {
@@ -14,7 +14,7 @@ interface UserData {
 }
 
 const OAuth: React.FC = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const handleGoogleClick = async (): Promise<void> => {
@@ -23,23 +23,32 @@ const OAuth: React.FC = () => {
       const auth = getAuth(app);
       const result = await signInWithPopup(auth, provider);
       
-      const res = await fetch('/api/auth/google', {
+      if (!result.user) {
+        throw new Error('No user data received from Google');
+      }
+
+      const res = await fetch('http://localhost:5000/api/user/google', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           name: result.user.displayName,
           email: result.user.email,
-          photo: result.user.photoURL
-        })
+          photo: result.user.photoURL,
+        } satisfies UserData),
       });
+
+      if (!res.ok) {
+        throw new Error('Failed to authenticate with server');
+      }
       
       const data = await res.json();
-      // dispatch(signInSuccess(data));
+      console.log(data);
+      dispatch(signInSuccess(data.rest));
       router.push('/');
-    } catch(error) {
-      console.log("Could not sign in with Google", error);
+    } catch (error) {
+      console.error("Could not sign in with Google:", error);
     }
   };
   
