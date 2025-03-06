@@ -1,13 +1,13 @@
-import { SignInForm } from '@/components/auth/SignInForm';
-import { OAuth } from '@/components/auth/OAuth';
+import SignUpForm from '@/components/auth/SignUpForm';
+import OAuth from '@/components/auth/OAuth';
 
 export default function SignInPage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-10">
       <div className="text-center">
         <h1 className="text-2xl font-bold">Sign In</h1>
       </div>
-      <SignInForm />
+      <SignUpForm />
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
