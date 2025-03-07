@@ -5,6 +5,8 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { signInFailure, signInStart, signInSuccess } from "@/redux/user/userSlice";
 
 interface FormData {
   username: string;
@@ -22,6 +24,7 @@ const SignInForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -33,13 +36,18 @@ const SignInForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      dispatch(signInStart());
       setLoading(true);
       setError(null);
 
       const { data } = await axios.post('http://localhost:5000/api/user/login', formData);
-
-      if (data.success) {
-        localStorage.setItem('token', data.token);
+      console.log(data)
+      if (data.success === false) {
+        dispatch(signInFailure(data.message));
+        return;
+      }
+      localStorage.setItem('token', data.token);
+        dispatch(signInSuccess(data.rest))
         toast.success('Successfully logged in!', {
           position: "top-right",
           autoClose: 3000,
@@ -50,7 +58,7 @@ const SignInForm: React.FC = () => {
           progress: undefined,
         });
         router.push('/');
-      }
+
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message = error.response?.data?.message || "Failed to login";

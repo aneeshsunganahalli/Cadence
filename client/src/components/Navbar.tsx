@@ -4,6 +4,12 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAppSelector } from '@/redux/hooks';
+import { RootState } from '@/types';
+import { useDispatch } from 'react-redux';
+import { signOutFailure, signOutStart, signOutSuccess } from '@/redux/user/userSlice';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const NavLinks = [
   { href: '/', label: 'Home' },
@@ -13,9 +19,11 @@ const NavLinks = [
 ];
 
 export default function Navbar() {
+  const {currentUser} = useAppSelector((state: RootState) => state.user)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,6 +45,18 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isMobileMenuOpen]);
 
+  const logout = async () => {
+    try {
+      dispatch(signOutStart());
+
+      localStorage.removeItem('token');
+      dispatch(signOutSuccess());
+
+      toast.success("Signed Out");
+    } catch (error) {
+      dispatch(signOutFailure(error instanceof Error ? error.message : 'An error occurred'));
+    }
+  }
   return (
     <nav
       className={` w-full z-50 transition-all duration-300 bg-transparent py-4`}
@@ -82,20 +102,34 @@ export default function Navbar() {
             </div>
 
             {/* Auth Buttons */}
-            <div className="flex items-center space-x-1">
-              <Link
-                href="/sign-in"
-                className="px-5 py-2 text-sm font-medium text-white bg-gradient-to-r from-gray-600 to-black rounded-full hover:shadow-lg hover:shadow-gray-500/20 transition-all duration-200"
-              >
-                Sign in
-              </Link>
-              <Link
-                href="/sign-up"
-                className="px-5 py-2 text-sm font-medium text-white bg-gradient-to-r from-gray-600 to-black rounded-full hover:shadow-lg hover:shadow-gray-500/20 transition-all duration-200"
-              >
-                Get Started
-              </Link>
-            </div>
+            {
+              currentUser ?
+              (
+                <Link
+                  onClick={() => logout()}
+                    href="/sign-in"
+                    className="px-5 py-2 text-sm font-medium text-white bg-gradient-to-r from-gray-600 to-black rounded-full hover:shadow-lg hover:shadow-gray-500/20 transition-all duration-200"
+                  >
+                    Logout
+                  </Link>
+                ):(
+                  
+                  <div className="flex items-center space-x-1">
+                  <Link
+                      href="/sign-in"
+                      className="px-5 py-2 text-sm font-medium text-white bg-gradient-to-r from-gray-600 to-black rounded-full hover:shadow-lg hover:shadow-gray-500/20 transition-all duration-200"
+                    >
+                      Sign in
+                    </Link>
+                    <Link
+                      href="/sign-up"
+                      className="px-5 py-2 text-sm font-medium text-white bg-gradient-to-r from-gray-600 to-black rounded-full hover:shadow-lg hover:shadow-gray-500/20 transition-all duration-200"
+                    >
+                      Get Started
+                    </Link>
+                  </div>
+                )
+            }
           </div>
 
           {/* Mobile Menu Button */}

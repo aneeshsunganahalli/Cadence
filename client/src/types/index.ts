@@ -14,12 +14,6 @@ export interface UserState {
   loading: boolean;
 }
 
-// Redux persist config type
-export interface PersistConfig {
-  key: string
-  storage: typeof storage
-  version: number
-}
 
 // Redux persist config type
 export interface PersistConfig {
