@@ -12,7 +12,7 @@ interface FormData {
   password: string;
 }
 
-const SignUpForm: React.FC = () => {
+const SignInForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     username: "",
     email: "",
@@ -35,7 +35,7 @@ const SignUpForm: React.FC = () => {
     try {
       setLoading(true);
 
-      const { data } = await axios.post('http://localhost:5000/api/user/register', formData);
+      const { data } = await axios.post('http://localhost:5000/api/user/login', formData);
 
       if (data.success) {
         localStorage.setItem('token', data.token);
@@ -55,22 +55,13 @@ const SignUpForm: React.FC = () => {
 
   return (
     <div className="max-w-lg mx-auto">
-      <h1 className="text-3xl text-center font-semibold my-7 text-white">Sign Up</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input
-          type="text"
-          placeholder="Username"
-          id="username"
-          className="bg-gray-900/50 text-white placeholder:text-gray-400 p-3 rounded-lg border border-gray-700 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition-colors"
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
+    
         <input
           type="email"
           placeholder="Email"
           id="email"
-          className="bg-gray-900/50 text-white placeholder:text-gray-400 p-3 rounded-lg border border-gray-700 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition-colors"
+          className="bg-gray-900/50 text-white placeholder:text-gray-400 p-3 rounded-3xl border border-gray-700 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition-colors"
           value={formData.email}
           onChange={handleChange}
           required
@@ -79,7 +70,7 @@ const SignUpForm: React.FC = () => {
           type="password"
           placeholder="Password"
           id="password"
-          className="bg-gray-900/50 text-white placeholder:text-gray-400 p-3 rounded-lg border border-gray-700 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition-colors"
+          className="bg-gray-900/50 text-white placeholder:text-gray-400 p-3 rounded-3xl border border-gray-700 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition-colors"
           value={formData.password}
           onChange={handleChange}
           required
@@ -87,9 +78,9 @@ const SignUpForm: React.FC = () => {
         />
         <button
           disabled={loading}
-          className="bg-gradient-to-r from-purple-600 to-blue-500 text-white p-3 rounded-lg uppercase hover:opacity-90 disabled:opacity-50 transition-all duration-200 font-medium"
+          className="bg-gradient-to-r from-gray-600 to-black text-white p-3 rounded-3xl uppercase hover:opacity-90 disabled:opacity-50 transition-all duration-200 font-medium"
         >
-          {loading ? 'Loading...' : 'Sign Up'}
+          {loading ? 'Loading...' : 'Sign In'}
         </button>
       </form>
 
@@ -99,17 +90,8 @@ const SignUpForm: React.FC = () => {
         </div>
       )}
 
-      <div className="flex gap-2 mt-5 justify-center">
-        <p className="text-gray-400">Have an account?</p>
-        <Link 
-          href="/sign-in" 
-          className="text-gray-500 hover:text-white transition-colors"
-        >
-          Sign in
-        </Link>
-      </div>
     </div>
   );
 };
 
-export default SignUpForm;
+export default SignInForm;

@@ -6,6 +6,7 @@ import { app } from "../../firebase";
 import { useDispatch } from 'react-redux';
 import { signInSuccess } from '@/redux/user/userSlice';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 interface UserData {
   name: string | null;
@@ -56,9 +57,16 @@ const OAuth: React.FC = () => {
     <button 
       onClick={handleGoogleClick} 
       type='button' 
-      className='bg-red-700 w-full p-3 rounded-lg text-white uppercase hover:opacity-90'
+      className='flex items-center justify-center gap-2 bg-black w-full p-3 rounded-3xl text-white uppercase hover:opacity-90'
     >
-      Continue with Google
+      <Image
+        src="/g.png"
+        width={38}
+        height={38}
+        alt='Google-logo'
+        className=''
+      />
+      <p>Continue with Google</p>
     </button>
   );
 };
