@@ -34,20 +34,40 @@ const SignInForm: React.FC = () => {
     e.preventDefault();
     try {
       setLoading(true);
+      setError(null);
 
       const { data } = await axios.post('http://localhost:5000/api/user/login', formData);
 
       if (data.success) {
         localStorage.setItem('token', data.token);
+        toast.success('Successfully logged in!', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         router.push('/');
-      } else {
-        toast.error(data.message);
       }
-
     } catch (error) {
-      setError(
-        error instanceof Error ? error.message : "Something went wrong"
-      );
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data?.message || "Failed to login";
+        toast.error(message, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setError(message);
+      } else {
+        toast.error('An unexpected error occurred');
+        setError('An unexpected error occurred');
+      }
     } finally {
       setLoading(false);
     }
@@ -80,15 +100,9 @@ const SignInForm: React.FC = () => {
           disabled={loading}
           className="bg-gradient-to-r from-gray-600 to-black text-white p-3 rounded-3xl uppercase hover:opacity-90 disabled:opacity-50 transition-all duration-200 font-medium"
         >
-          {loading ? 'Loading...' : 'Sign In'}
+          {loading ? 'Loading...' : 'Login'}
         </button>
       </form>
-
-      {error && (
-        <div className="bg-red-900/50 border border-red-500/50 text-red-400 p-3 rounded-lg mt-4">
-          {error}
-        </div>
-      )}
 
     </div>
   );
