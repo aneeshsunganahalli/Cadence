@@ -9,7 +9,6 @@ import { RootState } from '@/types';
 import { useDispatch } from 'react-redux';
 import { signOutFailure, signOutStart, signOutSuccess } from '@/redux/user/userSlice';
 import { toast } from 'react-toastify';
-import axios from 'axios';
 
 const NavLinks = [
   { href: '/', label: 'Home' },
@@ -59,7 +58,7 @@ export default function Navbar() {
   }
   return (
     <nav
-      className={` w-full z-50 transition-all duration-300 bg-transparent py-4`}
+      className={` w-full z-50 transition-all duration-300 bg-black py-4`}
     >
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center justify-between">
@@ -88,7 +87,7 @@ export default function Navbar() {
                   <AnimatePresence mode="wait">
                     {pathname === link.href && (
                       <motion.span
-                        className="absolute inset-0 bg-gray-700 rounded-full -z-10"
+                        className="absolute inset-0 bg-gray-600 rounded-full -z-10"
                         initial={{ x: -100, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         exit={{ x: 100, opacity: 0 }}
@@ -105,13 +104,16 @@ export default function Navbar() {
             {
               currentUser ?
               (
-                <Link
+                <div className='flex items-center gap-2'>
+                  <Link
                   onClick={() => logout()}
                     href="/sign-in"
                     className="px-5 py-2 text-sm font-medium text-white bg-gradient-to-r from-gray-600 to-black rounded-full hover:shadow-lg hover:shadow-gray-500/20 transition-all duration-200"
                   >
                     Logout
-                  </Link>
+                </Link>
+                <img src={currentUser.avatar} className='w-8 h-8 mx-auto rounded-3xl' />
+                </div>
                 ):(
                   
                   <div className="flex items-center space-x-1">

@@ -57,7 +57,7 @@ const OAuth: React.FC = () => {
     <button 
       onClick={handleGoogleClick} 
       type='button' 
-      className='flex items-center justify-center gap-2 bg-black w-full p-3 rounded-3xl text-white uppercase hover:opacity-90'
+      className='flex items-center justify-center gap-2 bg-black w-full p-3 rounded-3xl text-white hover:opacity-90'
     >
       <Image
         src="/g.png"

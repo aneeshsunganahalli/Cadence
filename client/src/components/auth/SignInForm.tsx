@@ -89,7 +89,7 @@ const SignInForm: React.FC = () => {
           type="email"
           placeholder="Email"
           id="email"
-          className="bg-gray-900/50 text-white placeholder:text-gray-400 p-3 rounded-3xl border border-gray-700 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition-colors"
+          className="bg-gray-900/50 text-white placeholder:text-gray-400 p-3 rounded-3xl border border-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-200 transition-colors"
           value={formData.email}
           onChange={handleChange}
           required
@@ -98,7 +98,7 @@ const SignInForm: React.FC = () => {
           type="password"
           placeholder="Password"
           id="password"
-          className="bg-gray-900/50 text-white placeholder:text-gray-400 p-3 rounded-3xl border border-gray-700 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition-colors"
+          className="bg-gray-900/50 text-white placeholder:text-gray-400 p-3 rounded-3xl border border-gray-700  focus:outline-none focus:ring-1 focus:ring-gray-200 transition-colors"
           value={formData.password}
           onChange={handleChange}
           required
@@ -106,7 +106,7 @@ const SignInForm: React.FC = () => {
         />
         <button
           disabled={loading}
-          className="bg-gradient-to-r from-gray-600 to-black text-white p-3 rounded-3xl uppercase hover:opacity-90 disabled:opacity-50 transition-all duration-200 font-medium"
+          className="bg-gradient-to-r from-gray-600 to-black text-white p-3 rounded-3xl hover:opacity-90 disabled:opacity-50 transition-all duration-200 font-medium"
         >
           {loading ? 'Loading...' : 'Login'}
         </button>
