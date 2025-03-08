@@ -22,6 +22,12 @@ const expenseSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  type : {
+    type: String,
+    enum: ['expense'],
+    default: 'expense',
+    immutable: true,
+  },
   date: {
     type: Number,
     required: true,

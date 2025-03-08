@@ -25,6 +25,12 @@ const depositSchema = new mongoose.Schema({
   paymentMethod: {
     type: String,
     required: true,
+  },
+  type: {
+    type: String,
+    enum: ['deposit'],
+    default: 'deposit',
+    immutable: true,
   }
 }, { minimize: false });
 
