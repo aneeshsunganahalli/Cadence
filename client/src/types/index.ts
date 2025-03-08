@@ -17,7 +17,11 @@ export interface Expense {
   amount: number;
   category: string;
   date: string;
-  paymentMethod: string | null;
+  paymentMethod: string;
+}
+
+export interface ExpenseCardProps extends Expense {
+  onUpdate: () => void;
 }
 
 

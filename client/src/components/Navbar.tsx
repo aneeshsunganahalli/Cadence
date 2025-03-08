@@ -13,8 +13,7 @@ import { toast } from 'react-toastify';
 const NavLinks = [
   { href: '/', label: 'Home' },
   { href: '/dashboard', label: 'Dashboard' },
-  { href: '/contact', label: 'Contact' },
-  { href: '/about', label: 'About' },
+  { href: '/statistics', label: 'Statistics' },
 ];
 
 export default function Navbar() {
@@ -58,7 +57,7 @@ export default function Navbar() {
   }
   return (
     <nav
-      className={` w-full z-50 transition-all duration-300 bg-black py-4`}
+      className={`w-full z-50 transition-all duration-300 bg-gradient-to-b from-black to-[#04070B] py-4`}
     >
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center justify-between">
