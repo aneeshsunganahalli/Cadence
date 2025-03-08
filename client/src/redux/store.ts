@@ -1,27 +1,47 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from "./user/userSlice"
-import storage from 'redux-persist/lib/storage'
-import persistReducer from "redux-persist/es/persistReducer";
+import { persistReducer, persistStore } from "redux-persist";
 import { PersistConfig, RootState } from '../types';
-import { persistStore } from "redux-persist";
 
-const rootReducer = combineReducers({user: userReducer})
+const rootReducer = combineReducers({ user: userReducer });
 
-const persistConfig: PersistConfig = {
+// Configuration will be added dynamically
+let persistConfig: PersistConfig = {
   key: 'root',
-  storage,
-  version: 1
+  version: 1,
+  storage: null as any // Will be set dynamically
+};
+
+let persistedReducer;
+let store;
+let persistor;
+
+// Only initialize redux-persist on the client side
+if (typeof window !== 'undefined') {
+  const storage = require('redux-persist/lib/storage').default;
+  persistConfig.storage = storage;
+  
+  persistedReducer = persistReducer(persistConfig, rootReducer);
+  
+  store = configureStore({
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) => 
+      getDefaultMiddleware({
+        serializableCheck: false
+      })
+  });
+  
+  persistor = persistStore(store);
+} else {
+  // Server-side store configuration
+  store = configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => 
+      getDefaultMiddleware({
+        serializableCheck: false
+      })
+  });
 }
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-export const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => 
-    getDefaultMiddleware({
-      serializableCheck: false
-    })
-})
-
-export const persistor = persistStore(store)
-export type AppDispatch = typeof store.dispatch
+export { store, persistor };
+export type AppDispatch = typeof store.dispatch;
