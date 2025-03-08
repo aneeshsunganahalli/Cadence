@@ -89,7 +89,7 @@ const updateExpense = async (req, res) => {
       return res.status(401).json({ success: false, message: "You can only update your own expenses" });
     }
 
-    if (!amount && !category && !description) {
+    if (!amount && !category && !description && !paymentMethod) {
       return res.status(400).json({ success: false, message: "At least one field is required" });
     }
 

@@ -3,13 +3,14 @@ import Deposit from "../models/deposit.model.js";
 const addDeposit = async (req, res) => {
   try {
 
-    const { userId, amount, depositType , description } = req.body;
+    const { userId, amount, category , description, paymentMethod } = req.body;
 
     const depositData = {
       userId,
       amount,
-      depositType,
+      category,
       description,
+      paymentMethod,
       date: Date.now(),
     }
 
@@ -63,7 +64,7 @@ const deleteDeposit = async (req, res) => {
 
 const updateDeposit = async (req, res) => {
   try {
-    const { userId, amount, depositType, description } = req.body;
+    const { userId, amount, category, description, paymentMethod } = req.body;
     const deposit = await Deposit.findById(req.params.id);
 
     if (!deposit) {
@@ -74,7 +75,7 @@ const updateDeposit = async (req, res) => {
       return res.status(401).json({ success: false, message: "You can only update your own deposits" });
     }
 
-    if (!amount && !depositType && !description) {
+    if (!amount && !category && !description && !paymentMethod) {
       return res.status(400).json({ success: false, message: "At least one field is required" });
     }
 
@@ -82,8 +83,9 @@ const updateDeposit = async (req, res) => {
       req.params.id,
       {
         amount: amount || deposit.amount,
-        depositType: depositType || deposit.depositType,
-        description: description || deposit.description
+        category: category || deposit.category,
+        description: description || deposit.description,
+        paymentMethod: paymentMethod || deposit.paymentMethod,
       },
       { new: true }
     );

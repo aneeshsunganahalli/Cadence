@@ -10,7 +10,7 @@ const depositSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  depositType: {
+  category: {
     type: String,
     required: true,
   },
@@ -20,6 +20,10 @@ const depositSchema = new mongoose.Schema({
   },
   date: {
     type: Number,
+    required: true,
+  },
+  paymentMethod: {
+    type: String,
     required: true,
   }
 }, { minimize: false });
