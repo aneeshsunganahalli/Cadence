@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { toast } from "react-toastify";
 
 interface FormData {
@@ -39,7 +38,8 @@ const SignUpForm: React.FC = () => {
 
       if (data.success) {
         localStorage.setItem('token', data.token);
-        router.push('/');
+        toast.success("Registered Successfully");
+        router.push('/sign-in');
       } else {
         toast.error(data.message);
       }
@@ -55,13 +55,12 @@ const SignUpForm: React.FC = () => {
 
   return (
     <div className="max-w-lg mx-auto">
-      <h1 className="text-3xl text-center font-semibold my-7 text-white">Sign Up</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="text"
           placeholder="Username"
           id="username"
-          className="bg-gray-900/50 text-white placeholder:text-gray-400 p-3 rounded-lg border border-gray-700 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition-colors"
+          className="bg-gray-900/50 text-white placeholder:text-gray-400 p-3 rounded-3xl border border-gray-700  focus:outline-none focus:ring-1 focus:ring-gray-200 transition-colors"
           value={formData.username}
           onChange={handleChange}
           required
@@ -70,7 +69,7 @@ const SignUpForm: React.FC = () => {
           type="email"
           placeholder="Email"
           id="email"
-          className="bg-gray-900/50 text-white placeholder:text-gray-400 p-3 rounded-lg border border-gray-700 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition-colors"
+          className="bg-gray-900/50 text-white placeholder:text-gray-400 p-3 rounded-3xl border border-gray-700  focus:outline-none focus:ring-1 focus:ring-gray-200 transition-colors"
           value={formData.email}
           onChange={handleChange}
           required
@@ -79,7 +78,7 @@ const SignUpForm: React.FC = () => {
           type="password"
           placeholder="Password"
           id="password"
-          className="bg-gray-900/50 text-white placeholder:text-gray-400 p-3 rounded-lg border border-gray-700 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500 transition-colors"
+          className="bg-gray-900/50 text-white placeholder:text-gray-400 p-3 rounded-3xl border border-gray-700  focus:outline-none focus:ring-1 focus:ring-gray-200 transition-colors"
           value={formData.password}
           onChange={handleChange}
           required
@@ -87,27 +86,12 @@ const SignUpForm: React.FC = () => {
         />
         <button
           disabled={loading}
-          className="bg-gradient-to-r from-purple-600 to-blue-500 text-white p-3 rounded-lg uppercase hover:opacity-90 disabled:opacity-50 transition-all duration-200 font-medium"
+          className="bg-gradient-to-r from-gray-600 to-black text-white p-3 rounded-3xl uppercase hover:opacity-90 disabled:opacity-50 transition-all duration-200 font-medium"
         >
           {loading ? 'Loading...' : 'Sign Up'}
         </button>
       </form>
 
-      {error && (
-        <div className="bg-red-900/50 border border-red-500/50 text-red-400 p-3 rounded-lg mt-4">
-          {error}
-        </div>
-      )}
-
-      <div className="flex gap-2 mt-5 justify-center">
-        <p className="text-gray-400">Have an account?</p>
-        <Link 
-          href="/sign-in" 
-          className="text-gray-500 hover:text-white transition-colors"
-        >
-          Sign in
-        </Link>
-      </div>
     </div>
   );
 };
