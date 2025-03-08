@@ -93,7 +93,7 @@ const googleAuth = async (req,res) => {
       const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
       const {password: pass, ...rest} = user._doc;
 
-      res.status(200).json({success: true, token});
+      res.status(200).json({success: true, token, rest});
     } else {
       const generatedPassword = Math.random().toString(36).substring(-8) + Math.random().toString(36).substring(-8);
       const salt = await bcrypt.genSalt(10);
