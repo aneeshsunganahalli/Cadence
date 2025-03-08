@@ -11,6 +11,15 @@ export interface UserState {
   loading: boolean;
 }
 
+export interface Expense {
+  _id: string,
+  description: string;
+  amount: number;
+  category: string;
+  date: string;
+  paymentMethod: string | null;
+}
+
 
 export * from './redux'
 

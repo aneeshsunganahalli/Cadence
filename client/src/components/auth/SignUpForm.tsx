@@ -21,6 +21,7 @@ const SignUpForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -34,7 +35,7 @@ const SignUpForm: React.FC = () => {
     try {
       setLoading(true);
 
-      const { data } = await axios.post('http://localhost:5000/api/user/register', formData);
+      const { data } = await axios.post(backendUrl + '/api/user/register', formData);
 
       if (data.success) {
         localStorage.setItem('token', data.token);

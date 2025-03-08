@@ -25,6 +25,7 @@ const SignInForm: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const dispatch = useDispatch();
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -40,7 +41,7 @@ const SignInForm: React.FC = () => {
       setLoading(true);
       setError(null);
 
-      const { data } = await axios.post('http://localhost:5000/api/user/login', formData);
+      const { data } = await axios.post(backendUrl + '/api/user/login', formData);
       console.log(data)
       if (data.success === false) {
         dispatch(signInFailure(data.message));
