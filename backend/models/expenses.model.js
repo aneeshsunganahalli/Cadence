@@ -18,6 +18,10 @@ const expenseSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  paymentMethod: {
+    type: String,
+    required: true,
+  },
   date: {
     type: Number,
     required: true,

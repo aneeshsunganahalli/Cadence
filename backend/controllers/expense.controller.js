@@ -3,13 +3,14 @@ import Expense from "../models/expenses.model.js";
 const addExpense = async (req, res) => {
   try {
 
-    const { userId, amount, category, description } = req.body;
+    const { userId, amount, category, description, paymentMethod } = req.body;
 
     const expenseData = {
       userId,
       amount,
       category,
       description,
+      paymentMethod,
       date: Date.now(),
     }
 
@@ -30,7 +31,7 @@ const getExpenses = async (req, res) => {
     const { userId } = req.body;
     const expenses = await Expense.find({ userId: userId }).sort({ date: -1 });
 
-    res.status(200).json({ expenses });
+    res.status(200).json({ success:true, expenses });
 
   } catch (error) {
     console.log(error);
@@ -77,7 +78,7 @@ const deleteExpense = async (req, res) => {
 
 const updateExpense = async (req, res) => {
   try {
-    const { userId, amount, category, description } = req.body;
+    const { userId, amount, category, description, paymentMethod } = req.body;
     const expense = await Expense.findById(req.params.id);
 
     if (!expense) {
@@ -97,7 +98,8 @@ const updateExpense = async (req, res) => {
       {
         amount: amount || expense.amount,
         category: category || expense.category,
-        description: description || expense.description
+        description: description || expense.description,
+        paymentMethod: paymentMethod || expense.paymentMethod
       },
       { new: true }
     );
