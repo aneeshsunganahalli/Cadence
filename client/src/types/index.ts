@@ -11,16 +11,17 @@ export interface UserState {
   loading: boolean;
 }
 
-export interface Expense {
-  _id: string,
+export interface Transaction {
+  _id: string;
   description: string;
   amount: number;
   category: string;
-  date: string;
+  date: number;
   paymentMethod: string;
+  type: 'expense' | 'deposit';
 }
 
-export interface ExpenseCardProps extends Expense {
+export interface TransactionCardProps extends Transaction {
   onUpdate: () => void;
 }
 
