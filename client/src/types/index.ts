@@ -25,6 +25,15 @@ export interface TransactionCardProps extends Transaction {
   onUpdate: () => void;
 }
 
+export interface DeleteModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  type: 'expense' | 'deposit';
+  isLoading: boolean;
+}
+
+
 
 export * from './redux'
 
