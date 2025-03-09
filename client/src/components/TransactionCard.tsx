@@ -33,22 +33,27 @@ export default function TransactionCard({ onUpdate, ...transaction }: Transactio
     }));
   };
 
-  const editExpense = async () => {
+  const handleEdit = async () => {
     setIsLoading(true);
     try {
-      const { data } = await axios.patch(backendUrl +
-        `/api/expenses/update/${transaction._id}`,
+      const endpoint = transaction.type === 'expense' 
+        ? `/api/expenses/update/${transaction._id}`
+        : `/api/deposits/update/${transaction._id}`;
+
+      const { data } = await axios.patch(
+        `${backendUrl}${endpoint}`,
         updatedData,
         { headers: { token } }
       );
+
       if (data.success) {
         setIsEditing(false);
-        toast.success("Expense Updated");
+        toast.success(`${transaction.type === 'expense' ? 'Expense' : 'Deposit'} Updated`);
         onUpdate();
       }
     } catch (error) {
-      console.error('Failed to update expense:', error);
-      toast.error("Failed to Edit");
+      console.error(`Failed to update ${transaction.type}:`, error);
+      toast.error(`Failed to Edit ${transaction.type}`);
     } finally {
       setIsLoading(false);
     }
@@ -198,7 +203,7 @@ export default function TransactionCard({ onUpdate, ...transaction }: Transactio
         {isEditing ? (
           <>
             <button
-              onClick={editExpense}
+              onClick={handleEdit}
               disabled={isLoading}
               className="p-1 rounded-md hover:bg-green-700 bg-green-800/50 text-green-400 hover:text-green-100 transition-colors"
             >
