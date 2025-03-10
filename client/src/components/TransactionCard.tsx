@@ -27,9 +27,6 @@ export default function TransactionCard({ onUpdate, ...transaction }: Transactio
 
   const token = localStorage.getItem('token');
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-  const endPoint = transaction.type === 'expense' 
-        ? `/api/expenses/update/${transaction._id}`
-        : `/api/deposits/update/${transaction._id}`;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;

@@ -7,10 +7,12 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import TransactionCard from '@/components/TransactionCard'
 import { Transaction } from '@/types'
 import { useRouter } from 'next/navigation'
+import AddModal from '@/components/AddModal';
 
 const TransactionsList: React.FC = () => {
   const [allExpenses, setAllExpenses] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showAddModal, setShowAddModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const expensesPerPage = 8;
 
@@ -57,6 +59,10 @@ const TransactionsList: React.FC = () => {
     }
   };
 
+  const handleAddTransaction = () => {
+    setShowAddModal(true);
+  }
+
   useEffect(() => {
     if (!token) {
       toast.error("Login to view Transactions")
@@ -93,6 +99,7 @@ const TransactionsList: React.FC = () => {
   };
 
   return (
+    <>
     <div className="bg-zinc-900 rounded-xl m-16">
       <div className="p-4 border-b border-zinc-800">
         <h2 className="text-zinc-100 font-bold text-lg">Transaction History</h2>
@@ -160,6 +167,13 @@ const TransactionsList: React.FC = () => {
         </div>
       </div>
     </div>
+    <button className='w-12 text-xl' onClick={handleAddTransaction}>CLICK</button>
+    <AddModal
+      isOpen={showAddModal}
+      onClose={() => setShowAddModal(false)}
+      onSubmit={handleAddTransaction}
+    />
+    </>
   );
 }
 

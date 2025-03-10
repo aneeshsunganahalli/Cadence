@@ -33,7 +33,18 @@ export interface DeleteModalProps {
   isLoading: boolean;
 }
 
-
+export interface AddModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: (data: {
+    description: string;
+    amount: number;
+    category: string;
+    paymentMethod: string;
+    date: string;
+    type: 'expense' | 'deposit';
+  }) => void;
+}
 
 export * from './redux'
 
