@@ -167,7 +167,7 @@ const TransactionsList: React.FC = () => {
         </div>
       </div>
     </div>
-    <button className='w-12 text-xl' onClick={handleAddTransaction}>CLICK</button>
+    <button className='w-12 text-xl' onClick={handleAddTransaction}>ADD HERE</button>
     <AddModal
       isOpen={showAddModal}
       onClose={() => setShowAddModal(false)}
