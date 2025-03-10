@@ -31,7 +31,7 @@ const getDeposits = async (req, res) => {
     const { userId } = req.body;
     const deposits = await Deposit.find({ userId: userId }).sort({ date: -1 });
 
-    res.status(200).json({ deposits });
+    res.status(200).json({success: true, deposits });
 
   } catch (error) {
     console.log(error);
