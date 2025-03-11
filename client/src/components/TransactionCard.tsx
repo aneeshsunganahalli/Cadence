@@ -19,7 +19,7 @@ export default function TransactionCard({ onUpdate, ...transaction }: Transactio
   const [isLoading, setIsLoading] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [updatedData, setUpdatedData] = useState({
-    amount: transaction.amount,
+    amount: transaction.amount.toString(),
     category: transaction.category,
     description: transaction.description,
     paymentMethod: transaction.paymentMethod,
@@ -32,7 +32,7 @@ export default function TransactionCard({ onUpdate, ...transaction }: Transactio
     const { name, value } = e.target;
     setUpdatedData(prev => ({
       ...prev,
-      [name]: name === 'amount' ? parseFloat(value) : value
+      [name]: value
     }));
   };
 
@@ -43,9 +43,15 @@ export default function TransactionCard({ onUpdate, ...transaction }: Transactio
         ? `/api/expenses/update/${transaction._id}`
         : `/api/deposits/update/${transaction._id}`;
 
+        const dataToSubmit = {
+          ...updatedData,
+          // Convert to number or use 0 if empty
+          amount: updatedData.amount === '' ? 0 : parseFloat(updatedData.amount)
+        };
+
       const { data } = await axios.patch(
         `${backendUrl}${endpoint}`,
-        updatedData,
+        dataToSubmit,
         { headers: { token } }
       );
 
@@ -93,7 +99,7 @@ export default function TransactionCard({ onUpdate, ...transaction }: Transactio
 
   const cancelEdit = () => {
     setUpdatedData({
-      amount: transaction.amount,
+      amount: transaction.amount.toString(),
       category: transaction.category,
       description: transaction.description,
       paymentMethod: transaction.paymentMethod
@@ -274,6 +280,7 @@ export default function TransactionCard({ onUpdate, ...transaction }: Transactio
         type={transaction.type}
         isLoading={isLoading}
       />
+      
     </>
   );
 }

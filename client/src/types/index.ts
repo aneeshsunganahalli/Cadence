@@ -46,5 +46,36 @@ export interface AddModalProps {
   }) => void;
 }
 
+export interface SummaryCardsProps {
+  totalBalance: number
+  totalIncome: number
+  totalExpense: number
+  savingsRate: number
+}
+
+interface MonthData {
+  month: string
+  income: number
+  expenses: number
+}
+
+export interface MonthlyChartProps {
+  data: MonthData[]
+}
+
+interface CategoryData {
+  name: string
+  value: number
+}
+
+export interface ExpensePieChartProps {
+  data: CategoryData[]
+}
+
+export interface RecentTransactionsProps {
+  transactions: Transaction[]
+  onUpdate: () => void
+}
+
 export * from './redux'
 
