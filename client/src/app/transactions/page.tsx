@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 import TransactionCard from '@/components/TransactionCard'
 import { Transaction } from '@/types'
 import { useRouter } from 'next/navigation'
@@ -43,7 +43,18 @@ const TransactionsList: React.FC = () => {
       const allTransactions = [
         ...expenseResponse.data.expenses,
         ...depositResponse.data.deposits
-      ].sort((a, b) => b.date - a.date); // Using Number timestamps directly
+      ].sort((a, b) => {
+        // First sort by date (newest first)
+      const dateDiff = b.date - a.date;
+      
+      if (dateDiff === 0) {
+        // If same date, sort by _id 
+        // Newer transactions appear first when dates are equal
+        return b._id.localeCompare(a._id);
+      }
+      
+      return dateDiff;
+      }); 
 
       setAllExpenses(allTransactions);
 
@@ -59,9 +70,12 @@ const TransactionsList: React.FC = () => {
     }
   };
 
-  const handleAddTransaction = () => {
-    setShowAddModal(true);
-  }
+  // Update this function
+  const handleAddTransaction = async (formData: any) => {
+    // Call fetchTransactions to refresh the list after adding a transaction
+    setShowAddModal(false)
+    fetchTransactions();
+  };
 
   useEffect(() => {
     if (!token) {
@@ -100,79 +114,105 @@ const TransactionsList: React.FC = () => {
 
   return (
     <>
-    <div className="bg-zinc-900 rounded-xl m-16">
-      <div className="p-4 border-b border-zinc-800">
-        <h2 className="text-zinc-100 font-bold text-lg">Transaction History</h2>
-      </div>
+      <div className="bg-zinc-900 rounded-xl m-16">
+        <div className="p-4 border-b border-zinc-800">
+          <h2 className="text-zinc-100 font-bold text-lg">Transaction History</h2>
+        </div>
 
-      {/* Table Header */}
-      <div className="grid grid-cols-12 px-4 py-3 bg-zinc-800/50 text-zinc-400 text-sm">
-        <div className="col-span-4">Description</div>
-        <div className="col-span-2 ">Amount</div>
-        <div className="col-span-2">Category</div>
-        <div className="col-span-2">Date</div>
-        <div className="col-span-1">Payment</div>
-        <div className="col-span-1 text-right">Actions</div>
-      </div>
+        {/* Table Header */}
+        <div className="grid grid-cols-12 px-4 py-3 bg-zinc-800/50 text-zinc-400 text-sm">
+          <div className="col-span-4">Description</div>
+          <div className="col-span-2 ">Amount</div>
+          <div className="col-span-2">Category</div>
+          <div className="col-span-2">Date</div>
+          <div className="col-span-1">Payment</div>
+          <div className="col-span-1 text-right">Actions</div>
+        </div>
 
-      {/* Expense Rows */}
-      <div className="divide-y divide-zinc-800">
-        {loading ? (
-          <div className="p-8 text-center text-zinc-400">Loading expenses...</div>
-        ) : currentExpenses.length === 0 ? (
-          <div className="p-8 text-center text-zinc-400">No expenses found</div>
-        ) : (
-          currentExpenses.map(expense => (
-            <TransactionCard
-              key={expense._id}
-              {...expense}
-              onUpdate={handleTransactionUpdate}
-            />
-          ))
-        )}
-      </div>
-
-      {/* Pagination Footer */}
-      <div className="p-4 border-t border-zinc-800 flex justify-between items-center">
-        <span className="text-zinc-400 text-sm">
-          {totalExpenses > 0 ? (
-            `Showing ${indexOfFirstExpense + 1}-${Math.min(indexOfLastExpense, totalExpenses)} of ${totalExpenses} expenses`
+        {/* Expense Rows */}
+        <div className="divide-y divide-zinc-800">
+          {loading ? (
+            <div className="p-8 text-center text-zinc-400">Loading expenses...</div>
+          ) : currentExpenses.length === 0 ? (
+            <div className="p-8 text-center text-zinc-400">No expenses found</div>
           ) : (
-            'No expenses to display'
+            currentExpenses.map(expense => (
+              <TransactionCard
+                key={expense._id}
+                {...expense}
+                onUpdate={handleTransactionUpdate}
+              />
+            ))
           )}
-        </span>
-        <div className="flex space-x-2">
-          <button
-            onClick={goToPreviousPage}
-            disabled={currentPage === 1 || loading}
-            className={`flex items-center bg-zinc-800 px-3 py-1.5 rounded-lg text-sm transition-colors ${currentPage === 1 || loading
+        </div>
+
+        {/* Pagination Footer */}
+        <div className="p-4 border-t border-zinc-800 flex justify-between items-center">
+          <span className="text-zinc-400 text-sm">
+            {totalExpenses > 0 ? (
+              `Showing ${indexOfFirstExpense + 1}-${Math.min(indexOfLastExpense, totalExpenses)} of ${totalExpenses} expenses`
+            ) : (
+              'No expenses to display'
+            )}
+          </span>
+          <div className="flex space-x-2">
+            <button
+              onClick={goToPreviousPage}
+              disabled={currentPage === 1 || loading}
+              className={`flex items-center bg-zinc-800 px-3 py-1.5 rounded-lg text-sm transition-colors ${currentPage === 1 || loading
                 ? 'text-zinc-600 cursor-not-allowed'
                 : 'text-zinc-200 hover:bg-zinc-700'
-              }`}
-          >
-            <ChevronLeft className="h-4 w-4 mr-1" />
-            Previous
-          </button>
-          <button
-            onClick={goToNextPage}
-            disabled={currentPage >= totalPages || loading}
-            className={`flex items-center bg-zinc-800 px-3 py-1.5 rounded-lg text-sm transition-colors ${currentPage >= totalPages || loading
+                }`}
+            >
+              <ChevronLeft className="h-4 w-4 mr-1" />
+              Previous
+            </button>
+            <button
+              onClick={goToNextPage}
+              disabled={currentPage >= totalPages || loading}
+              className={`flex items-center bg-zinc-800 px-3 py-1.5 rounded-lg text-sm transition-colors ${currentPage >= totalPages || loading
                 ? 'text-zinc-600 cursor-not-allowed'
                 : 'text-zinc-200 hover:bg-zinc-700'
-              }`}
-          >
-            Next
-            <ChevronRight className="h-4 w-4 ml-1" />
-          </button>
+                }`}
+            >
+              Next
+              <ChevronRight className="h-4 w-4 ml-1" />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <button className='w-12 text-xl' onClick={handleAddTransaction}>ADD HERE</button>
-    <AddModal
-      isOpen={showAddModal}
-      onClose={() => setShowAddModal(false)}
-      onSubmit={handleAddTransaction}
-    />
+
+
+      <button
+        onClick={() => setShowAddModal(true)}
+        className="fixed bottom-8 right-4 h-14 
+    bg-zinc-900 border border-zinc-800
+    rounded-full shadow-lg shadow-black/20
+    hover:bg-zinc-800 hover:border-zinc-700
+    transition-all duration-300
+    flex items-center justify-center group
+    w-14 hover:w-48 overflow-hidden
+    hover:pr-4 active:scale-95"
+        aria-label="Add Transaction"
+      >
+        <span className="absolute left-4">
+          <Plus className="h-6 w-6 text-zinc-400 
+      group-hover:text-white transition-colors 
+      group-hover:rotate-90 duration-300"
+          />
+        </span>
+        <span className="translate-x-16 opacity-0 group-hover:translate-x-8 group-hover:opacity-100 
+    transition-all duration-300 text-zinc-400 group-hover:text-white whitespace-nowrap">
+          Add Transaction
+        </span>
+      </button>
+
+
+      <AddModal
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        onSubmit={handleAddTransaction}
+      />
     </>
   );
 }

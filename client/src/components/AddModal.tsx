@@ -4,6 +4,7 @@ import { AddModalProps } from "@/types";
 import { useState } from "react";
 import { X } from "lucide-react";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const expenseCategories = [
   { value: 'Food & Dining' },
@@ -45,6 +46,9 @@ export default function AddModal({ isOpen, onClose, onSubmit }: AddModalProps) {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState(defaultFormData);
 
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const token = localStorage.getItem('token')
+
   if (!isOpen) return null
 
   const handleClose = () => {
@@ -57,20 +61,36 @@ export default function AddModal({ isOpen, onClose, onSubmit }: AddModalProps) {
     e.preventDefault();
     setLoading(true);
     try {
-      await onSubmit({
-        ...formData,
-        amount: parseFloat(formData.amount),
-        type: transactionType
-      })
-      onClose();
-      toast.success("Transaction Added Successfully");
+      let endPoint: string = transactionType === 'expense' ? 'expenses' : 'deposits';
+      const {type, ...rest} = formData;
+
+      // Make API call
+      const response = await axios.post(
+        `${backendUrl}/api/${endPoint}`, 
+        {...rest, amount: parseFloat(formData.amount)}, 
+        {headers: {token}}
+      );
+      
+      if (response.data.success) {
+        toast.success(`${transactionType} added successfully`);
+        
+        // Call onSubmit to notify parent component to refresh the list
+        onSubmit({
+          ...formData,
+          amount: parseFloat(formData.amount),
+          type: transactionType
+        });
+        
+        // Close modal and reset form
+        handleClose();
+      }
     } catch (error) {
-      console.error(error);
-      toast.error("Failed to add transaction");
+      console.error('Failed to add transaction:', error);
+      toast.error('Failed to add transaction');
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
