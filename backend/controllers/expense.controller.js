@@ -3,7 +3,7 @@ import Expense from "../models/expenses.model.js";
 const addExpense = async (req, res) => {
   try {
 
-    const { userId, amount, category, description, paymentMethod } = req.body;
+    const { userId, amount, category, description, paymentMethod, date } = req.body;
 
     const expenseData = {
       userId,
@@ -11,7 +11,7 @@ const addExpense = async (req, res) => {
       category,
       description,
       paymentMethod,
-      date: Date.now(),
+      date: date ? new Date(date) : Date.now(),
     }
 
     const newExpense = new Expense(expenseData);

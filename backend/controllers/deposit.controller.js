@@ -3,7 +3,7 @@ import Deposit from "../models/deposit.model.js";
 const addDeposit = async (req, res) => {
   try {
 
-    const { userId, amount, category , description, paymentMethod } = req.body;
+    const { userId, amount, category , description, paymentMethod, date } = req.body;
 
     const depositData = {
       userId,
@@ -11,7 +11,7 @@ const addDeposit = async (req, res) => {
       category,
       description,
       paymentMethod,
-      date: Date.now(),
+      date: date ? new Date(date) : Date.now(),
     }
 
     const newDeposit = new Deposit(depositData);
