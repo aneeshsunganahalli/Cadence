@@ -8,7 +8,7 @@ export default function RecentTransactions({ transactions, onUpdate }: RecentTra
   const router = useRouter()
   
   return (
-    <div className="bg-zinc-900 rounded-xl border border-zinc-800">
+    <div className="bg-[#0D0D10] rounded-xl border border-zinc-800">
       <div className="p-6 border-b border-zinc-800 flex justify-between items-center">
         <h3 className="text-zinc-200 font-semibold">Recent Transactions</h3>
         <button 

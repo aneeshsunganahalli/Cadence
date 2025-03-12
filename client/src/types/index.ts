@@ -53,7 +53,7 @@ export interface SummaryCardsProps {
   savingsRate: number
 }
 
-interface MonthData {
+export interface MonthData {
   month: string
   income: number
   expenses: number

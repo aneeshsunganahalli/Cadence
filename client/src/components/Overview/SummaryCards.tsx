@@ -10,7 +10,7 @@ export default function SummaryCards({
 }: SummaryCardsProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+      <div className="bg-[#0D0D10] p-6 rounded-xl border border-zinc-800">
         <div className="flex justify-between">
           <div>
             <p className="text-zinc-400 text-sm">Total Balance</p>
@@ -22,7 +22,7 @@ export default function SummaryCards({
         </div>
       </div>
 
-      <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+      <div className="bg-[#0D0D10] p-6 rounded-xl border border-zinc-800">
         <div className="flex justify-between">
           <div>
             <p className="text-zinc-400 text-sm">Total Income</p>
@@ -34,7 +34,7 @@ export default function SummaryCards({
         </div>
       </div>
 
-      <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+      <div className="bg-[#0D0D10] p-6 rounded-xl border border-zinc-800">
         <div className="flex justify-between">
           <div>
             <p className="text-zinc-400 text-sm">Total Expenses</p>
@@ -46,7 +46,7 @@ export default function SummaryCards({
         </div>
       </div>
 
-      <div className="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+      <div className="bg-[#0D0D10] p-6 rounded-xl border border-zinc-800">
         <div className="flex justify-between">
           <div>
             <p className="text-zinc-400 text-sm">Savings Rate</p>
