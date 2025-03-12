@@ -17,6 +17,7 @@ interface UserData {
 const OAuth: React.FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const handleGoogleClick = async (): Promise<void> => {
     try {
@@ -28,7 +29,7 @@ const OAuth: React.FC = () => {
         throw new Error('No user data received from Google');
       }
 
-      const res = await fetch('http://localhost:5000/api/user/google', {
+      const res = await fetch(backendUrl + '/api/user/google', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,6 +47,7 @@ const OAuth: React.FC = () => {
       
       const data = await res.json();
       console.log(data);
+      localStorage.setItem('token', data.token)
       dispatch(signInSuccess(data.rest));
       router.push('/');
     } catch (error) {
