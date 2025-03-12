@@ -114,20 +114,25 @@ const TransactionsList: React.FC = () => {
 
   return (
     <>
-      <div className="bg-zinc-900 rounded-xl m-16">
+      <div className="bg-[#0D0D10] rounded-xl m-16">
         <div className="p-4 border-b border-zinc-800">
           <h2 className="text-zinc-100 font-bold text-lg">Transaction History</h2>
         </div>
 
-        {/* Table Header */}
-        <div className="grid grid-cols-12 px-4 py-3 bg-zinc-800/50 text-zinc-400 text-sm">
-          <div className="col-span-4">Description</div>
-          <div className="col-span-2 ">Amount</div>
-          <div className="col-span-2">Category</div>
-          <div className="col-span-2">Date</div>
-          <div className="col-span-1">Payment</div>
-          <div className="col-span-1 text-right">Actions</div>
-        </div>
+        {/* Table Header - Responsive */}
+<div className="hidden sm:grid grid-cols-12 px-4 py-3 bg-zinc-800/50 text-zinc-400 text-sm">
+  <div className="col-span-6 md:col-span-5 lg:col-span-4">Description</div>
+  <div className="col-span-3 md:col-span-2">Amount</div>
+  <div className="hidden md:block col-span-2">Category</div>
+  <div className="hidden md:block col-span-2">Date</div>
+  <div className="hidden lg:block col-span-1">Payment</div>
+  <div className="col-span-3 md:col-span-1 text-right pr-2">Actions</div>
+</div>
+
+{/* Mobile Header - Only visible on small screens */}
+<div className="sm:hidden px-4 py-3 bg-zinc-800/50 text-zinc-400 text-sm">
+  Transactions
+</div>
 
         {/* Expense Rows */}
         <div className="divide-y divide-zinc-800">
@@ -186,9 +191,9 @@ const TransactionsList: React.FC = () => {
       <button
         onClick={() => setShowAddModal(true)}
         className="fixed bottom-8 right-4 h-14 
-    bg-zinc-900 border border-zinc-800
+    bg-[#0D0D10] border border-zinc-800
     rounded-full shadow-lg shadow-black/20
-    hover:bg-zinc-800 hover:border-zinc-700
+    hover:bg-[#0D0D10] hover:border-zinc-900
     transition-all duration-300
     flex items-center justify-center group
     w-14 hover:w-48 overflow-hidden

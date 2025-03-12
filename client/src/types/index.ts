@@ -23,6 +23,7 @@ export interface Transaction {
 
 export interface TransactionCardProps extends Transaction {
   onUpdate: () => void;
+  compactMode?: boolean;
 }
 
 export interface DeleteModalProps {
@@ -47,10 +48,11 @@ export interface AddModalProps {
 }
 
 export interface SummaryCardsProps {
-  totalBalance: number
-  totalIncome: number
-  totalExpense: number
-  savingsRate: number
+  totalBalance: number;
+  totalIncome: number;
+  totalExpense: number;
+  savingsRate: number;
+  layout?: 'horizontal' | 'vertical';
 }
 
 export interface MonthData {

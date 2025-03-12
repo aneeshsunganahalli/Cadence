@@ -1,15 +1,21 @@
 // src/components/dashboard/SummaryCards.tsx
 import { Wallet, TrendingUp, TrendingDown, CreditCard } from 'lucide-react'
-import { SummaryCardsProps } from '@/types'
+import { SummaryCardsProps } from '@/types';
 
 export default function SummaryCards({ 
   totalBalance, 
   totalIncome, 
   totalExpense, 
-  savingsRate 
+  savingsRate,
+  layout = 'horizontal' // Default to horizontal
 }: SummaryCardsProps) {
+  // Determine grid class based on layout
+  const gridClass = layout === 'vertical' 
+    ? "flex flex-col gap-4"
+    : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4";
+  
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className={gridClass}>
       <div className="bg-[#0D0D10] p-6 rounded-xl border border-zinc-800">
         <div className="flex justify-between">
           <div>

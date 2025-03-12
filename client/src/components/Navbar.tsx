@@ -87,7 +87,7 @@ export default function Navbar() {
                   <AnimatePresence mode="wait">
                     {pathname === link.href && (
                       <motion.span
-                        className="absolute inset-0 bg-gray-600 rounded-full -z-10"
+                        className="absolute inset-0 bg-gray-900 rounded-full -z-10"
                         initial={{ x: -100, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         exit={{ x: 100, opacity: 0 }}
