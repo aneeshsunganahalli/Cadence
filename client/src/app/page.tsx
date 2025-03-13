@@ -3,11 +3,12 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, ChartBar, CreditCard, LineChart, Shield, Wallet } from 'lucide-react';
+import { ArrowRight, ChartBar, CreditCard, LineChart, Shield, Wallet, Plus, ArrowUpRight, ShoppingCart, Wifi, Briefcase, Bell } from 'lucide-react';
+import MiniDashboard from '@/components/MiniDashboard';
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
-  
+
   useEffect(() => {
     setIsVisible(true);
   }, []);
@@ -18,7 +19,7 @@ export default function Home() {
       <div className="relative pt-20 pb-32 px-6 md:px-12 max-w-7xl mx-auto overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Hero Content */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -31,14 +32,14 @@ export default function Home() {
               Track expenses, visualize spending patterns, and grow your savings with powerful analytics and intuitive design.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <Link 
-                href="/sign-up" 
+              <Link
+                href="/sign-up"
                 className="px-8 py-3.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl text-white font-medium text-center hover:from-purple-700 hover:to-blue-700 transition-all duration-300 shadow-lg shadow-blue-900/20"
               >
                 Get Started
               </Link>
-              <Link 
-                href="/dashboard" 
+              <Link
+                href="/dashboard"
                 className="px-8 py-3.5 border border-zinc-700 rounded-xl text-white font-medium flex items-center justify-center hover:bg-zinc-800/50 transition-all duration-300 gap-2 group"
               >
                 View Demo
@@ -46,35 +47,40 @@ export default function Home() {
               </Link>
             </div>
           </motion.div>
-          
+
           {/* Hero Image/Visual */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={isVisible ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="relative"
+            className="relative hidden md:block"
           >
-            <div className="relative bg-[#0D0D10]/80 rounded-2xl border border-zinc-800/50 p-4 shadow-2xl shadow-blue-500/5">
-              <img 
-                src="https://staticlearn.shine.com/l/m/images/blog/emerging_technologies_in_finance.webp" 
-                alt="Cadence Dashboard" 
-                className="rounded-xl border border-zinc-800/70 shadow-md"
-                onError={(e) => {
-                  e.currentTarget.src = "https://staticlearn.shine.com/l/m/images/blog/emerging_technologies_in_finance.webp";
-                }}
-              />
-              <div className="absolute -bottom-5 -right-5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl px-4 py-2 shadow-lg">
-                <p className="text-sm font-medium text-white">Intelligent Analytics</p>
+            <MiniDashboard />
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2.0, duration: 0.5 }}
+              className="absolute -top-8 -left-8 bg-[#0D0D10] p-3 rounded-lg border border-zinc-800 shadow-lg rotate-[-8deg]"
+            >
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                  <Bell className="h-4 w-4 text-emerald-400" />
+                </div>
+                <div>
+                  <div className="text-xs text-zinc-400">Budget Alert</div>
+                  <div className="text-sm font-medium text-white">Shopping: 92% used</div>
+                </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
-        
+
         {/* Background Elements */}
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-10"></div>
         <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-10"></div>
       </div>
-      
+
       {/* Features Section */}
       <div className="py-24 px-6 md:px-12 bg-black/30 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
@@ -86,10 +92,10 @@ export default function Home() {
               Everything you need to take control of your finances in one elegant platform.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Feature Card 1 */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.3 }}
@@ -103,9 +109,9 @@ export default function Home() {
                 Categorize and monitor your spending with detailed breakdowns and custom tags.
               </p>
             </motion.div>
-            
+
             {/* Feature Card 2 */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.4 }}
@@ -119,9 +125,9 @@ export default function Home() {
                 Powerful charts and graphs that reveal spending patterns and financial trends.
               </p>
             </motion.div>
-            
+
             {/* Feature Card 3 */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.5 }}
@@ -135,9 +141,9 @@ export default function Home() {
                 Create personalized budgets and receive alerts when approaching limits.
               </p>
             </motion.div>
-            
+
             {/* Feature Card 4 */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.6 }}
@@ -151,9 +157,9 @@ export default function Home() {
                 Track different payment methods and visualize where your money goes.
               </p>
             </motion.div>
-            
+
             {/* Feature Card 5 */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.7 }}
@@ -167,9 +173,9 @@ export default function Home() {
                 Your financial data is encrypted and protected with industry-leading security.
               </p>
             </motion.div>
-            
+
             {/* Feature Card 6 */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.8 }}
@@ -179,18 +185,18 @@ export default function Home() {
               <p className="text-zinc-400 mb-4">
                 Join thousands of users taking control of their finances today.
               </p>
-              <Link 
-                href="/sign-up" 
+              <Link
+                href="/sign-up"
                 className="flex items-center font-medium text-blue-400 hover:text-blue-300 transition-colors group"
               >
-                Create an account 
+                Create an account
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </motion.div>
           </div>
         </div>
       </div>
-      
+
       {/* Testimonial/Stats Section */}
       <div className="py-24 px-6 md:px-12">
         <div className="max-w-6xl mx-auto bg-[#0D0D10]/80 rounded-2xl border border-zinc-800/50 p-8 md:p-12">
@@ -198,11 +204,11 @@ export default function Home() {
             <div>
               <h2 className="text-3xl font-bold text-white mb-4">Financial Freedom at Your Fingertips</h2>
               <p className="text-zinc-400 mb-6">
-                Cadence gives you the tools to understand your spending habits, track your savings goals, 
+                Cadence gives you the tools to understand your spending habits, track your savings goals,
                 and make better financial decisions - all in one elegant application.
               </p>
-              <Link 
-                href="/dashboard" 
+              <Link
+                href="/dashboard"
                 className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl text-white font-medium inline-flex items-center hover:from-purple-700 hover:to-blue-700 transition-all duration-300 shadow-lg shadow-blue-900/20"
               >
                 Explore Dashboard
@@ -230,7 +236,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      
+
       {/* CTA Section */}
       <div className="py-20 px-6 md:px-12 relative">
         <div className="max-w-4xl mx-auto text-center relative z-10">
@@ -241,21 +247,21 @@ export default function Home() {
             Join Cadence today and discover a smarter way to manage your money, track expenses, and achieve your financial goals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/sign-up" 
+            <Link
+              href="/sign-up"
               className="px-8 py-3.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl text-white font-medium hover:from-purple-700 hover:to-blue-700 transition-all duration-300 shadow-lg shadow-blue-900/20"
             >
               Create Account
             </Link>
-            <Link 
-              href="/sign-in" 
+            <Link
+              href="/sign-in"
               className="px-8 py-3.5 border border-zinc-700 rounded-xl text-white font-medium hover:bg-zinc-800/50 transition-all duration-300"
             >
               Sign In
             </Link>
           </div>
         </div>
-        
+
         {/* Background Elements */}
         <div className="absolute bottom-0 inset-x-0 h-64 bg-gradient-to-t from-black to-transparent z-0"></div>
       </div>
