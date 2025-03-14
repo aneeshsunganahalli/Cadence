@@ -34,7 +34,7 @@ export default function Home() {
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <Link
                 href="/sign-up"
-                className="px-8 py-3.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl text-white font-medium text-center hover:from-purple-700 hover:to-blue-700 transition-all duration-300 shadow-lg shadow-blue-900/20"
+                className="px-8 py-3.5 bg-gradient-to-r from-gray-900 to-black rounded-xl text-white font-medium text-center hover:from-gray-800 hover:to-black transition-all duration-300 shadow-lg shadow-white/15"
               >
                 Get Started
               </Link>
@@ -209,7 +209,7 @@ export default function Home() {
               </p>
               <Link
                 href="/dashboard"
-                className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl text-white font-medium inline-flex items-center hover:from-purple-700 hover:to-blue-700 transition-all duration-300 shadow-lg shadow-blue-900/20"
+                className="px-6 py-3 bg-gradient-to-r from-gray-900 to-black rounded-xl text-white font-medium inline-flex items-center hover:from-gray-800 hover:to-black transition-all duration-300 shadow-lg shadow-white/15"
               >
                 Explore Dashboard
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -249,7 +249,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/sign-up"
-              className="px-8 py-3.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl text-white font-medium hover:from-purple-700 hover:to-blue-700 transition-all duration-300 shadow-lg shadow-blue-900/20"
+              className="px-8 py-3.5 bg-gradient-to-r from-gray-900 to-black rounded-xl text-white font-medium hover:from-gray-800 hover:to-black transition-all duration-300 shadow-lg shadow-blue-900/20"
             >
               Create Account
             </Link>
