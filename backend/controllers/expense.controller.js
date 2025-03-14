@@ -112,5 +112,50 @@ const updateExpense = async (req, res) => {
   }
 }
 
+const getCategorySummary = async (req,res) => {
+  try {
+    const {userId } = req.body;
+    const { month, year} = req.query;
 
-export { addExpense, getExpenses, deleteExpense, updateExpense, getExpense };
+    if (!month || !year) {
+      return res.status(400).json({success: false, message: "Month and year are required"});
+    }
+    const startDate = new Date(parseInt(year), parseInt(month) - 1, 1).getTime();
+
+    const endDate = new Date(parseInt(year), parseInt(month), 0, 23, 59, 59, 999).getTime();
+
+    const categorySummary = await Expense.aggregate([
+      {
+        $match: {
+          userId: ObjectId(userId),
+          date: { $gte: startDate, $lte: endDate }
+        }
+      },
+      {
+        $group: {
+          _id: "$category",
+          total: { $sum: "$amount" },
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $sort: { total: -1 }
+      },
+      {
+        $project: {
+          _id: 0,
+          category: "$_id",
+          total: 1,
+          count: 1
+        }
+      }
+    ])
+
+    res.status(200).json({success: true, categories: categorySummary});
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({success: false, message: error.message})
+  }
+}
+export { addExpense, getExpenses, deleteExpense, updateExpense, getExpense, getCategorySummary };
