@@ -1,4 +1,5 @@
 import Expense from "../models/expenses.model.js";
+import mongoose from "mongoose";
 
 const addExpense = async (req, res) => {
   try {
@@ -127,7 +128,7 @@ const getCategorySummary = async (req,res) => {
     const categorySummary = await Expense.aggregate([
       {
         $match: {
-          userId: ObjectId(userId),
+          userId: new mongoose.Types.ObjectId(userId),
           date: { $gte: startDate, $lte: endDate }
         }
       },

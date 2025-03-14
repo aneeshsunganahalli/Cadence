@@ -58,7 +58,6 @@ const Stats: React.FC = () => {
             params: {
               month: monthIndex + 1, // API expects 1-12
               year: parseInt(year),
-              type: 'expense'
             },
             headers: { token }
           },);
