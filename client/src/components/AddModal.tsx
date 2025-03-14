@@ -72,7 +72,7 @@ export default function AddModal({ isOpen, onClose, onSubmit }: AddModalProps) {
       );
       
       if (response.data.success) {
-        toast.success(`${transactionType} added successfully`);
+        toast.success(`Added successfully`);
         
         // Call onSubmit to notify parent component to refresh the list
         onSubmit({

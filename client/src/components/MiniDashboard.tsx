@@ -143,46 +143,46 @@ const MiniDashboard: React.FC = () => {
               </div>
 
               {/* Chart Data */}
-<div className="absolute left-6 right-0 top-0 bottom-0 flex items-end justify-around">
-  {[
-    { month: 'Jan', income: 65, expense: 40 },
-    { month: 'Feb', income: 80, expense: 55 },
-    { month: 'Mar', income: 60, expense: 35 },
-    { month: 'Apr', income: 85, expense: 60 },
-    { month: 'May', income: 95, expense: 50 },
-    { month: 'Jun', income: 75, expense: 45 }
-  ].map((data, i) => (
-    <div key={data.month} className="flex flex-col items-center w-1/6">
-      {/* Bars Container - Changed to flex-row */}
-      <div className="flex flex-row items-end gap-1 mb-1">
-        {/* Income Bar */}
-        <div className="relative w-2 h-20">
-          <motion.div
-            initial={{ height: 0 }}
-            animate={{ height: `${data.income * 0.8}px` }}
-            transition={{ duration: 0.6 }}
-            className="absolute bottom-0 w-full bg-green-400 rounded-sm"
-            style={{ backgroundImage: 'linear-gradient(to top, #059669, #34d399)' }}
-          ></motion.div>
-        </div>
+              <div className="absolute left-6 right-0 top-0 bottom-0 flex items-end justify-around">
+                {[
+                  { month: 'Jan', income: 65, expense: 40 },
+                  { month: 'Feb', income: 80, expense: 55 },
+                  { month: 'Mar', income: 60, expense: 35 },
+                  { month: 'Apr', income: 85, expense: 60 },
+                  { month: 'May', income: 95, expense: 50 },
+                  { month: 'Jun', income: 75, expense: 45 }
+                ].map((data, i) => (
+                  <div key={data.month} className="flex flex-col items-center w-1/6">
+                    {/* Bars Container - Changed to flex-row */}
+                    <div className="flex flex-row items-end gap-1 mb-1">
+                      {/* Income Bar */}
+                      <div className="relative w-2 h-20">
+                        <motion.div
+                          initial={{ height: 0 }}
+                          animate={{ height: `${data.income * 0.8}px` }}
+                          transition={{ duration: 0.6 }}
+                          className="absolute bottom-0 w-full bg-green-400 rounded-sm"
+                          style={{ backgroundImage: 'linear-gradient(to top, #059669, #34d399)' }}
+                        ></motion.div>
+                      </div>
 
-        {/* Expense Bar */}
-        <div className="relative w-2 h-20">
-          <motion.div
-            initial={{ height: 0 }}
-            animate={{ height: `${data.expense * 0.8}px` }}
-            transition={{ delay: 0.3 + (i * 0.05), duration: 0.6 }}
-            className="absolute bottom-0 w-full bg-rose-400 rounded-sm"
-            style={{ backgroundImage: 'linear-gradient(to top, #e11d48, #fb7185)' }}
-          ></motion.div>
-        </div>
-      </div>
+                      {/* Expense Bar */}
+                      <div className="relative w-2 h-20">
+                        <motion.div
+                          initial={{ height: 0 }}
+                          animate={{ height: `${data.expense * 0.8}px` }}
+                          transition={{ delay: 0.3 + (i * 0.05), duration: 0.6 }}
+                          className="absolute bottom-0 w-full bg-rose-400 rounded-sm"
+                          style={{ backgroundImage: 'linear-gradient(to top, #e11d48, #fb7185)' }}
+                        ></motion.div>
+                      </div>
+                    </div>
 
-      {/* X-axis Label */}
-      <div className="text-[8px] text-zinc-500 mt-0.5">{data.month}</div>
-    </div>
-  ))}
-</div>
+                    {/* X-axis Label */}
+                    <div className="text-[8px] text-zinc-500 mt-0.5">{data.month}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>

@@ -125,7 +125,7 @@ export default function ExpensePieChart({ data }: ExpensePieChartProps) {
   const isVerticalLayout = windowWidth < 768;
 
   return (
-    <div className="bg-[#0A0A0F] p-6 sm:p-7 rounded-xl border border-white/[0.03] shadow-lg">
+    <div className="bg-[#0A0A0F] p-8 sm:p-7 rounded-xl border border-white/[0.03] shadow-lg">
       <div className="mb-6">
         <h3 className="text-white/90 font-medium text-base tracking-wide">Expenses</h3>
         <div className="flex items-end gap-2 mt-1">
@@ -134,7 +134,7 @@ export default function ExpensePieChart({ data }: ExpensePieChartProps) {
         </div>
       </div>
       
-      <div className={`flex ${isVerticalLayout ? 'flex-col' : 'flex-row'} gap-6`}>
+      <div className={`flex ${isVerticalLayout ? 'flex-col' : 'flex-row'} gap-5 w-full`}>
         <div 
           ref={chartRef}
           className={`${isVerticalLayout ? 'h-64' : 'h-64'} ${isVerticalLayout ? 'w-full' : 'w-2/5'} outline-none`}
@@ -160,9 +160,9 @@ export default function ExpensePieChart({ data }: ExpensePieChartProps) {
                 data={sortedData}
                 cx="50%"
                 cy="50%"
-                innerRadius={isVerticalLayout ? 50 : 45}
+                innerRadius={0}
                 outerRadius={isVerticalLayout ? 80 : 70}
-                paddingAngle={1}
+                paddingAngle={0}
                 dataKey="value"
                 nameKey="name"
                 onMouseEnter={handlePieEnter}
@@ -175,7 +175,7 @@ export default function ExpensePieChart({ data }: ExpensePieChartProps) {
                   <Cell
                     key={`cell-${index}`}
                     fill={`url(#colorGradient-${index % COLORS.length})`}
-                    stroke="#0A0A0F"
+                    stroke="none"
                     strokeWidth={1}
                   />
                 ))}
