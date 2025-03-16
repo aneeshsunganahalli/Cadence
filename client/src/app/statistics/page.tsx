@@ -9,6 +9,7 @@ import ExpenseTrendChart from '@/components/Stats/Trends';
 import MonthlyComparisonGrid from '@/components/Stats/MonthComparison';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { getLocalItem} from '@/utils/storage';
 
 const Stats: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -18,15 +19,20 @@ const Stats: React.FC = () => {
   const [months, setMonths] = useState<string[]>([]);
 
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
-  const token = localStorage.getItem('token');
+  const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
-    if (!token) {
+    // Safe localStorage access only on client
+    const storedToken = typeof window !== 'undefined' ? getLocalItem('token') : null;
+    setToken(storedToken);
+    
+    // Redirect if no token
+    if (!storedToken) {
       toast.error("Login to see Statistics")
       router.push("/sign-in");
     }
-  }, [token,router])
+  }, [router]);
 
   useEffect(() => {
     const getLastTwelveMonths = () => {

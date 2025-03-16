@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Change output mode to export static files
   output: 'export',
   eslint: {
     ignoreDuringBuilds: true,
@@ -9,20 +8,31 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
         hostname: '**',
       },
     ],
-    unoptimized: true,
   },
   skipTrailingSlashRedirect: true,
+  // This is what helps with client-side only pages
   experimental: {
-    // Disable generating route manifests altogether
     disableOptimizedLoading: true
+  },
+  
+  // Add a special export condition for your statistics page
+  exportPathMap: async function() {
+    return {
+      '/': { page: '/' },
+      '/sign-in': { page: '/sign-in' },
+      '/sign-up': { page: '/sign-up' },
+      '/dashboard': { page: '/dashboard' },
+      '/transactions': { page: '/transactions' },
+      // Leave out statistics to prevent static build errors
+    };
   }
 };
 
-// Use ES Module export syntax
 export default nextConfig;

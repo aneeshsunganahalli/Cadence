@@ -8,6 +8,7 @@ import TransactionCard from '@/components/TransactionCard'
 import { Transaction } from '@/types'
 import { useRouter } from 'next/navigation'
 import AddModal from '@/components/AddModal';
+import { getLocalItem} from '@/utils/storage';
 
 const TransactionsList: React.FC = () => {
   const [allExpenses, setAllExpenses] = useState<Transaction[]>([]);
@@ -16,7 +17,7 @@ const TransactionsList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const expensesPerPage = 8;
 
-  const token = localStorage.getItem('token');
+  const token = getLocalItem('token');
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
   const router = useRouter();
 

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { MonthData, Transaction } from '@/types'
+import { getLocalItem} from '@/utils/storage';
 
 import SummaryCards from '@/components/Overview/SummaryCards'
 import MonthlyChart from '@/components/Overview/MonthlyChart'
@@ -31,7 +32,7 @@ const DashBoard: React.FC = () => {
   // Move localStorage access to useEffect
   useEffect(() => {
     // Now this code only runs on the client side
-    const storedToken = localStorage.getItem('token')
+    const storedToken = getLocalItem('token')
     setToken(storedToken)
     
     if (!storedToken) {
