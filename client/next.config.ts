@@ -1,12 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   eslint: {
-    // Allow production builds to complete even with ESLint errors
     ignoreDuringBuilds: true,
   },
   typescript: {
-    // Allow production builds to complete even with type errors
     ignoreBuildErrors: true,
+  },
+  // Moved from experimental to top level in Next.js 15
+  serverExternalPackages: [],
+  experimental: {
+    // Remove optimizeRouteGroups as it's no longer supported
   },
   images: {
     remotePatterns: [

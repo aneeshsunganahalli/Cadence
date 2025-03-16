@@ -1,13 +1,15 @@
-import { ReactNode } from 'react';
+'use client';
 
-interface AuthLayoutProps {
-  children: ReactNode;
-}
+import React from 'react';
 
-export default function AuthLayout({ children }: AuthLayoutProps) {
+export default function AuthLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <div className="min-h-[80vh] flex items-center justify-center bg-black">
-      <div className="max-w-md w-full space-y-8 p-6 bg-[#171717] rounded-xl shadow-lg mt-5">
+    <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+      <div className="max-w-md w-full space-y-8 p-6 bg-transparent backdrop-blur-xl rounded-2xl shadow-xl">
         {children}
       </div>
     </div>

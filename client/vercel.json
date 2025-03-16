@@ -1,9 +1,10 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "next build",
   "outputDirectory": ".next",
   "installCommand": "npm install",
   "framework": "nextjs",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
-  ]
+  ],
+  "regions": ["iad1"]
 }

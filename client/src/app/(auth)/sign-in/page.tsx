@@ -1,10 +1,12 @@
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import OAuth from '@/components/auth/OAuth';
-import SignInForm from '@/components/auth/SignInForm';
+'use client';
 
-const  SignUpPage: React.FC = ()  => {
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import SignInForm from '@/components/auth/SignInForm';
+import OAuth from '@/components/auth/OAuth';
+
+export default function SignInPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a] rounded-2xl">
       <div className="max-w-md w-full space-y-8 p-6 bg-trasnparent backdrop-blur-xl rounded-2xl shadow-xl">
@@ -54,5 +56,3 @@ const  SignUpPage: React.FC = ()  => {
     </div>
   );
 }
-
-export default SignUpPage;
