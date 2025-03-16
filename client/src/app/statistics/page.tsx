@@ -26,7 +26,7 @@ const Stats: React.FC = () => {
       toast.error("Login to see Statistics")
       router.push("/sign-in");
     }
-  }, [token])
+  }, [token,router])
 
   useEffect(() => {
     const getLastTwelveMonths = () => {

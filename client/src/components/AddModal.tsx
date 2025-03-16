@@ -61,7 +61,7 @@ export default function AddModal({ isOpen, onClose, onSubmit }: AddModalProps) {
     e.preventDefault();
     setLoading(true);
     try {
-      let endPoint: string = transactionType === 'expense' ? 'expenses' : 'deposits';
+      const endPoint = transactionType === 'expense' ? 'expenses' : 'deposits';
       const {type, ...rest} = formData;
 
       // Make API call
