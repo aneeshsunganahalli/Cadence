@@ -1,13 +1,14 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, CalendarIcon, PieChart } from 'lucide-react';
 import axios from 'axios';
 
 import ExpensePieChart from '@/components/Overview/ExpensePieChart';
 import ExpenseTrendChart from '@/components/Stats/Trends';
 import MonthlyComparisonGrid from '@/components/Stats/MonthComparison';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 const Stats: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -17,7 +18,15 @@ const Stats: React.FC = () => {
   const [months, setMonths] = useState<string[]>([]);
 
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('token');
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!token) {
+      toast.error("Login to see Statistics")
+      router.push("/sign-in");
+    }
+  }, [token])
 
   useEffect(() => {
     const getLastTwelveMonths = () => {
