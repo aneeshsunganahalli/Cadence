@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { signOutFailure, signOutStart, signOutSuccess } from '@/redux/user/userSlice';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
+import AvatarImage from '@/components/ui/AvatarImage';
 
 const NavLinks = [
   { href: '/', label: 'Home' },
@@ -111,14 +112,11 @@ export default function Navbar() {
                 >
                   Logout
                 </button>
-                {currentUser.avatar && (
+                {currentUser && (
                   <div className="w-8 h-8 rounded-full overflow-hidden">
-                    <Image 
+                    <AvatarImage 
                       src={currentUser.avatar} 
-                      alt="Profile" 
-                      width={24}
-                      height={24}
-                      className="w-full h-full object-cover" 
+                      alt={currentUser.username || "User"}
                     />
                   </div>
                 )}
@@ -202,12 +200,11 @@ export default function Navbar() {
                   {currentUser ? (
                     <>
                       <div className="flex items-center gap-2 px-4 py-2">
-                        {currentUser.avatar && (
+                        {currentUser && (
                           <div className="w-8 h-8 rounded-full overflow-hidden">
-                            <img 
+                            <AvatarImage 
                               src={currentUser.avatar} 
-                              alt="Profile" 
-                              className="w-full h-full object-cover" 
+                              alt={currentUser.username || "User"}
                             />
                           </div>
                         )}
