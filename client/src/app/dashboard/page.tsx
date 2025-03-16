@@ -22,10 +22,23 @@ const DashBoard: React.FC = () => {
     savingsRate: 0
   })
   const [categoryData, setCategoryData] = useState<any[]>([])
+  // Add state for token instead of direct localStorage access
+  const [token, setToken] = useState<string | null>(null)
 
   const router = useRouter()
-  const token = localStorage.getItem('token')
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
+
+  // Move localStorage access to useEffect
+  useEffect(() => {
+    // Now this code only runs on the client side
+    const storedToken = localStorage.getItem('token')
+    setToken(storedToken)
+    
+    if (!storedToken) {
+      toast.error("Please login to view your dashboard")
+      router.push("/sign-in")
+    }
+  }, [router])
 
   // Process transactions into monthly data
   const processMonthlyData = (expenses: Transaction[], deposits: Transaction[]) => {
@@ -84,8 +97,9 @@ const DashBoard: React.FC = () => {
     return Object.values(monthsData);
   };
 
-
   const fetchData = async () => {
+    if (!token) return; // Don't fetch if no token
+    
     setLoading(true)
     try {
       const [expenseResponse, depositResponse] = await Promise.all([
@@ -148,14 +162,12 @@ const DashBoard: React.FC = () => {
     }
   }
 
+  // Use token from state in the dependency array
   useEffect(() => {
-    if (!token) {
-      toast.error("Please login to view your dashboard")
-      router.push("/sign-in")
-      return;
+    if (token) {
+      fetchData();
     }
-    fetchData();
-  }, [token, router])
+  }, [token]); // Remove router from dependencies, we handle that separately
 
   if (loading) {
     return (
