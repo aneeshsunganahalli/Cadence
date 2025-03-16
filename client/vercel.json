@@ -5,9 +5,5 @@
   "framework": "nextjs",
   "env": {
     "NEXT_SKIP_MANIFEST_VALIDATION": "true"
-  },
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ],
-  "regions": ["iad1"]
+  }
 }

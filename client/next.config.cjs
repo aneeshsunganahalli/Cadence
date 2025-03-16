@@ -24,5 +24,5 @@ const nextConfig = {
   }
 };
 
-// Use CommonJS export syntax for .cjs files
-module.exports = nextConfig;
+// Use ES Module export syntax
+export default nextConfig;
