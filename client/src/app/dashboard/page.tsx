@@ -5,8 +5,6 @@ import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { MonthData, Transaction } from '@/types'
-import { Wallet, TrendingUp, TrendingDown, CreditCard } from 'lucide-react';
-import TransactionCard from '@/components/TransactionCard'
 
 import SummaryCards from '@/components/Overview/SummaryCards'
 import MonthlyChart from '@/components/Overview/MonthlyChart'

@@ -1,5 +1,4 @@
-// src/components/dashboard/RecentTransactions.tsx
-import { useRouter } from 'next/navigation'
+
 import { Transaction } from '@/types'
 import TransactionCard from '@/components/TransactionCard'
 

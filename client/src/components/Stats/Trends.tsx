@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import {
   ResponsiveContainer,
-  LineChart,
   Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   Area,
   ReferenceLine,
   ComposedChart,
@@ -17,9 +15,27 @@ import {
 import { motion } from 'framer-motion';
 import { ArrowUpCircle, ArrowDownCircle, TrendingUp, BarChart3, Activity } from 'lucide-react';
 
+// Define expense item type to replace 'any'
+interface ExpenseItem {
+  name: string;
+  value: number;
+  color?: string;
+  // Add other properties that might exist in your expense items
+}
+
 interface ExpenseTrendChartProps {
   months: string[];
-  monthlyData: Record<string, any[]>;
+  // Replace 'any[]' with proper type
+  monthlyData: Record<string, ExpenseItem[]>;
+}
+
+// Define the payload type for Scatter shape prop
+interface ScatterPayload {
+  name: string;
+  year: string;
+  total: number;
+  growth: number;
+  fullMonth: string;
 }
 
 const ExpenseTrendChart: React.FC<ExpenseTrendChartProps> = ({ months, monthlyData }) => {
@@ -233,11 +249,13 @@ const ExpenseTrendChart: React.FC<ExpenseTrendChartProps> = ({ months, monthlyDa
                       cx?: number;
                       cy?: number;
                       r?: number;
-                      payload?: any;
+                      payload?: ScatterPayload; // Use the specific type here instead of 'any'
                       fill?: string;
                       index?: number;
                     }) => {
                       const { cx, cy, payload } = props;
+                      if (!payload) return <circle cx={cx} cy={cy} r={0} opacity={0} />;
+                      
                       // Default value for cy if undefined
                       const yCord = cy ?? 0;
                       // Only show markers for significant changes

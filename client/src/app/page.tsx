@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, ChartBar, CreditCard, LineChart, Shield, Wallet, Plus, ArrowUpRight, ShoppingCart, Wifi, Briefcase, Bell } from 'lucide-react';
+import { ArrowRight, ChartBar, CreditCard, LineChart, Shield, Wallet, Bell } from 'lucide-react';
 import MiniDashboard from '@/components/MiniDashboard';
 
 export default function Home() {

@@ -19,7 +19,6 @@ const SignUpForm: React.FC = () => {
   })
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -46,9 +45,7 @@ const SignUpForm: React.FC = () => {
       }
 
     } catch (error) {
-      setError(
-        error instanceof Error ? error.message : "Something went wrong"
-      );
+      toast.error("Something went wrong")
     } finally {
       setLoading(false);
     }

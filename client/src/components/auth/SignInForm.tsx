@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { signInFailure, signInStart, signInSuccess } from "@/redux/user/userSlice";
@@ -22,7 +21,6 @@ const SignInForm: React.FC = () => {
   })
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const dispatch = useDispatch();
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
@@ -39,7 +37,6 @@ const SignInForm: React.FC = () => {
     try {
       dispatch(signInStart());
       setLoading(true);
-      setError(null);
 
       const { data } = await axios.post(backendUrl + '/api/user/login', formData);
       console.log(data)
@@ -72,10 +69,8 @@ const SignInForm: React.FC = () => {
           draggable: true,
           progress: undefined,
         });
-        setError(message);
       } else {
         toast.error('An unexpected error occurred');
-        setError('An unexpected error occurred');
       }
     } finally {
       setLoading(false);

@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import {
-  ArrowUpRight, ArrowDownRight, CalendarDays, CreditCard, IndianRupee, MoreHorizontal, Edit, Save, X, Check,
+  ArrowUpRight, ArrowDownRight, CalendarDays, CreditCard, IndianRupee, MoreHorizontal, Edit, X, Check,
   // Expense Categories
   Utensils, Bus, Film, Home, Zap, ShoppingBag, Heart, User, GraduationCap, Plane,
   // Income Categories
-  Landmark, Gift, Coins, Briefcase, Building,
+   Gift, Coins, Briefcase, Building,
   Trash2
 } from 'lucide-react';
 import { TransactionCardProps } from '@/types';
