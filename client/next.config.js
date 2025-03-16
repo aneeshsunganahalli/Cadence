@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  // Change output mode to export static files
+  output: 'export',
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -15,6 +16,11 @@ const nextConfig = {
       },
     ],
   },
+  skipTrailingSlashRedirect: true,
+  experimental: {
+    // Disable generating route manifests altogether
+    disableOptimizedLoading: true
+  }
 };
 
 module.exports = nextConfig;
