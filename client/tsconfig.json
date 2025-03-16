@@ -34,6 +34,6 @@
     ".next/types/**/*.ts",
     "src/firebase.js",
     "src/**/*.d.ts"
-, "next.config.js"  ],
+, "next.config.cjs"  ],
   "exclude": ["node_modules"]
 }
