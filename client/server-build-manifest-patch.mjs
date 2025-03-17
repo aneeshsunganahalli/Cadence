@@ -63,3 +63,45 @@ if (existsSync(serverDir)) {
 }
 
 console.log('Manifest patching completed');
+
+// Create empty files instead of trying to process them
+const authRoutes = ['/dashboard', '/transactions', '/statistics'];
+
+// Create empty HTML files for auth routes
+authRoutes.forEach(route => {
+  const routePath = join(__dirname, 'out', route);
+  const indexHtml = join(routePath, 'index.html');
+  
+  try {
+    // Create directory if it doesn't exist
+    import('fs').then(fs => {
+      if (!fs.existsSync(routePath)) {
+        fs.mkdirSync(routePath, { recursive: true });
+      }
+      
+      // Create a minimal HTML file that redirects to sign-in
+      const htmlContent = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>Redirecting...</title>
+          <script>
+            window.location.href = '/sign-in?redirect=${route}';
+          </script>
+        </head>
+        <body>
+          <p>Redirecting to sign in...</p>
+        </body>
+      </html>`;
+      
+      fs.writeFileSync(indexHtml, htmlContent);
+      console.log(`Created redirect for ${route}`);
+    });
+  } catch (error) {
+    console.error(`Error creating redirect for ${route}:`, error);
+  }
+});
+
+console.log('Static build patching completed');
