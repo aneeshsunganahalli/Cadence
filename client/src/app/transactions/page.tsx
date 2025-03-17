@@ -17,9 +17,20 @@ const TransactionsList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const expensesPerPage = 8;
 
-  const token = getLocalItem('token');
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    // Safe access to localStorage
+    const storedToken = getLocalItem('token');
+    setToken(storedToken);
+    
+    if (!storedToken) {
+      router.push('/sign-in');
+    }
+  }, [router]);
+
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   // Fetch all transactions
   const fetchTransactions = async () => {

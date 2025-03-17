@@ -5,12 +5,13 @@ import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { MonthData, Transaction } from '@/types'
-import { getLocalItem} from '@/utils/storage';
+
 
 import SummaryCards from '@/components/Overview/SummaryCards'
 import MonthlyChart from '@/components/Overview/MonthlyChart'
 import ExpensePieChart from '@/components/Overview/ExpensePieChart'
 import RecentTransactions from '@/components/Overview/RecentTransactions'
+import { getLocalItem } from '@/utils/storage';
 
 const DashBoard: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([])
@@ -23,23 +24,10 @@ const DashBoard: React.FC = () => {
     savingsRate: 0
   })
   const [categoryData, setCategoryData] = useState<any[]>([])
-  // Add state for token instead of direct localStorage access
-  const [token, setToken] = useState<string | null>(null)
 
   const router = useRouter()
+  const [token, setToken] = useState<string | null>(null);
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
-
-  // Move localStorage access to useEffect
-  useEffect(() => {
-    // Now this code only runs on the client side
-    const storedToken = getLocalItem('token')
-    setToken(storedToken)
-    
-    if (!storedToken) {
-      toast.error("Please login to view your dashboard")
-      router.push("/sign-in")
-    }
-  }, [router])
 
   // Process transactions into monthly data
   const processMonthlyData = (expenses: Transaction[], deposits: Transaction[]) => {
@@ -98,9 +86,8 @@ const DashBoard: React.FC = () => {
     return Object.values(monthsData);
   };
 
+
   const fetchData = async () => {
-    if (!token) return; // Don't fetch if no token
-    
     setLoading(true)
     try {
       const [expenseResponse, depositResponse] = await Promise.all([
@@ -163,12 +150,16 @@ const DashBoard: React.FC = () => {
     }
   }
 
-  // Use token from state in the dependency array
   useEffect(() => {
-    if (token) {
-      fetchData();
+    const storedToken = getLocalItem('token');
+    setToken(storedToken);
+    
+    if (!storedToken) {
+      router.push('/sign-in');
+      return;
     }
-  }, [token]); // Remove router from dependencies, we handle that separately
+    fetchData();
+  }, [router])
 
   if (loading) {
     return (

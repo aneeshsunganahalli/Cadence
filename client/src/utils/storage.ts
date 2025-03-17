@@ -1,10 +1,11 @@
 /**
  * Safely access localStorage with SSR support
  */
-export const getLocalItem = (key) => {
+export const getLocalItem = (key: string): string | null => {
   if (typeof window === 'undefined') {
     return null;
   }
+  
   try {
     return localStorage.getItem(key);
   } catch (e) {
@@ -13,10 +14,11 @@ export const getLocalItem = (key) => {
   }
 };
 
-export const setLocalItem = (key, value) => {
+export const setLocalItem = (key: string, value: string): void => {
   if (typeof window === 'undefined') {
     return;
   }
+  
   try {
     localStorage.setItem(key, value);
   } catch (e) {
@@ -24,10 +26,11 @@ export const setLocalItem = (key, value) => {
   }
 };
 
-export const removeLocalItem = (key) => {
+export const removeLocalItem = (key: string): void => {
   if (typeof window === 'undefined') {
     return;
   }
+  
   try {
     localStorage.removeItem(key);
   } catch (e) {

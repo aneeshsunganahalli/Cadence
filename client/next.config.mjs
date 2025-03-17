@@ -17,21 +17,9 @@ const nextConfig = {
     ],
   },
   skipTrailingSlashRedirect: true,
-  // This is what helps with client-side only pages
+  // Remove exportPathMap and just use experimental config
   experimental: {
     disableOptimizedLoading: true
-  },
-  
-  // Add a special export condition for your statistics page
-  exportPathMap: async function() {
-    return {
-      '/': { page: '/' },
-      '/sign-in': { page: '/sign-in' },
-      '/sign-up': { page: '/sign-up' },
-      '/dashboard': { page: '/dashboard' },
-      '/transactions': { page: '/transactions' },
-      // Leave out statistics to prevent static build errors
-    };
   }
 };
 
