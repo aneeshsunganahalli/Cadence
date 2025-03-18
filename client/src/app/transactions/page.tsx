@@ -80,7 +80,7 @@ const TransactionsList: React.FC = () => {
   useEffect(() => {
     if (!token) {
       toast.error("Login to view Transactions")
-      router.push("/sign-in")
+      router.push("/auth/sign-in")
     }
     fetchTransactions();
   }, [token]);

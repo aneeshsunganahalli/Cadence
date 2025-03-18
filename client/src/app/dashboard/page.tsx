@@ -151,7 +151,7 @@ const DashBoard: React.FC = () => {
   useEffect(() => {
     if (!token) {
       toast.error("Please login to view your dashboard")
-      router.push("/sign-in")
+      router.push("/auth/sign-in")
       return;
     }
     fetchData();

@@ -126,13 +126,13 @@ export default function Navbar() {
             ) : (
               <div className="flex items-center space-x-1">
                 <Link
-                  href="/sign-in"
+                  href="/auth/sign-in"
                   className="px-5 py-2 text-sm font-medium text-white bg-gradient-to-r from-gray-600 to-black rounded-full hover:shadow-lg hover:shadow-gray-500/20 transition-all duration-200"
                 >
                   Sign in
                 </Link>
                 <Link
-                  href="/sign-up"
+                  href="/auth/sign-up"
                   className="px-5 py-2 text-sm font-medium text-white bg-gradient-to-r from-gray-600 to-black rounded-full hover:shadow-lg hover:shadow-gray-500/20 transition-all duration-200"
                 >
                   Get Started
@@ -226,14 +226,14 @@ export default function Navbar() {
                   ) : (
                     <>
                       <Link
-                        href="/sign-in"
+                        href="/auth/sign-in"
                         className="block w-full px-4 py-3 text-center text-gray-600 hover:bg-gray-50 rounded-xl font-medium"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         Sign in
                       </Link>
                       <Link
-                        href="/sign-up"
+                        href="/auth/sign-up"
                         className="block w-full px-4 py-3 text-center text-white bg-gradient-to-r from-gray-600 to-black rounded-xl font-medium"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
