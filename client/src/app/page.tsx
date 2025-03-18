@@ -33,7 +33,7 @@ export default function Home() {
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <Link
-                href="/sign-up"
+                href="/auth/sign-up"
                 className="px-8 py-3.5 bg-gradient-to-r from-gray-900 to-black rounded-xl text-white font-medium text-center hover:from-gray-800 hover:to-black transition-all duration-300 shadow-lg shadow-white/15"
               >
                 Get Started
@@ -186,7 +186,7 @@ export default function Home() {
                 Join thousands of users taking control of their finances today.
               </p>
               <Link
-                href="/sign-up"
+                href="/auth/sign-up"
                 className="flex items-center font-medium text-blue-400 hover:text-blue-300 transition-colors group"
               >
                 Create an account
@@ -248,13 +248,13 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/sign-up"
+              href="/auth/sign-up"
               className="px-8 py-3.5 bg-gradient-to-r from-gray-900 to-black rounded-xl text-white font-medium hover:from-gray-800 hover:to-black transition-all duration-300 shadow-lg shadow-blue-900/20"
             >
               Create Account
             </Link>
             <Link
-              href="/sign-in"
+              href="/auth/sign-in"
               className="px-8 py-3.5 border border-zinc-700 rounded-xl text-white font-medium hover:bg-zinc-800/50 transition-all duration-300"
             >
               Sign In
