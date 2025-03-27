@@ -7,12 +7,14 @@ import { ArrowRight, ChartBar, CreditCard, LineChart, Shield, Wallet, Bell } fro
 import MiniDashboard from '@/components/MiniDashboard';
 
 export default function Home() {
-  const [isVisible, setIsVisible] = useState(false);
+  // Use a single state for client-side detection
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true);
+    // Mark as client-rendered
+    setIsClient(true);
   }, []);
-
+  
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -20,8 +22,8 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Hero Content */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isVisible ? { opacity: 1, y: 0 } : {}}
+            initial={isClient ? { opacity: 0, y: 20 } : "visible"}
+            animate={isClient ? { opacity: 1, y: 0 } : "visible"}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="z-10"
           >
@@ -33,7 +35,7 @@ export default function Home() {
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <Link
-                href="/auth/sign-up"
+                href="/sign-up"
                 className="px-8 py-3.5 bg-gradient-to-r from-gray-900 to-black rounded-xl text-white font-medium text-center hover:from-gray-800 hover:to-black transition-all duration-300 shadow-lg shadow-white/15"
               >
                 Get Started
@@ -50,29 +52,32 @@ export default function Home() {
 
           {/* Hero Image/Visual */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={isVisible ? { opacity: 1, x: 0 } : {}}
+            initial={isClient ? { opacity: 0, x: 20 } : "visible"}
+            animate={isClient ? { opacity: 1, x: 0 } : "visible"}
             transition={{ duration: 0.6, delay: 0.5 }}
             className="relative hidden md:block"
           >
             <MiniDashboard />
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2.0, duration: 0.5 }}
-              className="absolute -top-8 -left-8 bg-[#0D0D10] p-3 rounded-lg border border-zinc-800 shadow-lg rotate-[-8deg]"
-            >
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                  <Bell className="h-4 w-4 text-emerald-400" />
+            {/* Only show this when client-side */}
+            {isClient && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 0.5 }}
+                className="absolute -top-8 -left-8 bg-[#0D0D10] p-3 rounded-lg border border-zinc-800 shadow-lg rotate-[-8deg]"
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                    <Bell className="h-4 w-4 text-emerald-400" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-zinc-400">Budget Alert</div>
+                    <div className="text-sm font-medium text-white">Shopping: 92% used</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-xs text-zinc-400">Budget Alert</div>
-                  <div className="text-sm font-medium text-white">Shopping: 92% used</div>
-                </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            )}
           </motion.div>
         </div>
 
@@ -96,8 +101,8 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Feature Card 1 */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              initial={isClient ? { opacity: 0, y: 20 } : "visible"}
+              animate={isClient ? { opacity: 1, y: 0 } : "visible"}
               transition={{ duration: 0.5, delay: 0.3 }}
               className="bg-[#0D0D10] p-6 rounded-xl border border-zinc-800/50 hover:border-zinc-700 transition-all duration-300"
             >
@@ -112,8 +117,8 @@ export default function Home() {
 
             {/* Feature Card 2 */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              initial={isClient ? { opacity: 0, y: 20 } : "visible"}
+              animate={isClient ? { opacity: 1, y: 0 } : "visible"}
               transition={{ duration: 0.5, delay: 0.4 }}
               className="bg-[#0D0D10] p-6 rounded-xl border border-zinc-800/50 hover:border-zinc-700 transition-all duration-300"
             >
@@ -128,8 +133,8 @@ export default function Home() {
 
             {/* Feature Card 3 */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              initial={isClient ? { opacity: 0, y: 20 } : "visible"}
+              animate={isClient ? { opacity: 1, y: 0 } : "visible"}
               transition={{ duration: 0.5, delay: 0.5 }}
               className="bg-[#0D0D10] p-6 rounded-xl border border-zinc-800/50 hover:border-zinc-700 transition-all duration-300"
             >
@@ -144,8 +149,8 @@ export default function Home() {
 
             {/* Feature Card 4 */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              initial={isClient ? { opacity: 0, y: 20 } : "visible"}
+              animate={isClient ? { opacity: 1, y: 0 } : "visible"}
               transition={{ duration: 0.5, delay: 0.6 }}
               className="bg-[#0D0D10] p-6 rounded-xl border border-zinc-800/50 hover:border-zinc-700 transition-all duration-300"
             >
@@ -160,8 +165,8 @@ export default function Home() {
 
             {/* Feature Card 5 */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              initial={isClient ? { opacity: 0, y: 20 } : "visible"}
+              animate={isClient ? { opacity: 1, y: 0 } : "visible"}
               transition={{ duration: 0.5, delay: 0.7 }}
               className="bg-[#0D0D10] p-6 rounded-xl border border-zinc-800/50 hover:border-zinc-700 transition-all duration-300"
             >
@@ -176,8 +181,8 @@ export default function Home() {
 
             {/* Feature Card 6 */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              initial={isClient ? { opacity: 0, y: 20 } : "visible"}
+              animate={isClient ? { opacity: 1, y: 0 } : "visible"}
               transition={{ duration: 0.5, delay: 0.8 }}
               className="bg-gradient-to-br from-purple-500/20 to-blue-500/20 p-6 rounded-xl border border-zinc-800/50 hover:border-zinc-700 transition-all duration-300"
             >
@@ -186,7 +191,7 @@ export default function Home() {
                 Join thousands of users taking control of their finances today.
               </p>
               <Link
-                href="/auth/sign-up"
+                href="/sign-up"
                 className="flex items-center font-medium text-blue-400 hover:text-blue-300 transition-colors group"
               >
                 Create an account
@@ -248,7 +253,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/auth/sign-up"
+              href="/sign-up"
               className="px-8 py-3.5 bg-gradient-to-r from-gray-900 to-black rounded-xl text-white font-medium hover:from-gray-800 hover:to-black transition-all duration-300 shadow-lg shadow-blue-900/20"
             >
               Create Account
